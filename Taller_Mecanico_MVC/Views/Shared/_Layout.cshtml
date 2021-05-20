@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Mi Taller Mecánico", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">                    
+                            
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" id="dpPresupuestos" data-toggle="dropdown">Presupuestos</a>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("Crear Presupuesto", "CrearPresupuesto", "Presupuesto", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Consultar Presupuestos", "ConsultarPresupuesto", "Presupuesto", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Modificar Presupuesto", "ModificarPresupuesto", "Presupuesto", new { area = "" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dpOrdenesTrabajo" data-toggle="dropdown">Ordenes de Trabajo</a>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("Crear Orden de Trabajo", "CrearOrden", "OrdenTrabajo", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Consultar Órdenes de Trabajo", "ConsultarOrden", "OrdenTrabajo", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Modificar Orden de Trabajo", "ModificarOrden", "OrdenTrabajo", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Anular Orden de Trabajo", "AnularOrden", "OrdenTrabajo", new { area = "" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dpVehiculos" data-toggle="dropdown">Vehículos</a>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("Crear Vehiculo", "CrearVehiculo", "Vehiculo", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Consultar Vehiculos", "ConsultarVehiculo", "Vehiculo", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Modificar Vehiculo", "ModificarVehiculo", "Vehiculo", new { area = "" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dpClientes" data-toggle="dropdown">Clientes</a>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("Crear Cliente", "CrearCliente", "Cliente", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Consultar Clientes", "ConsultarCliente", "Cliente", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Modificar Cliente", "ModificarCliente", "Cliente", new { area = "" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dpServicios" data-toggle="dropdown">Servicios</a>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("Crear Servicio", "CrearServicio", "Servicio", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Consultar Servicios", "ConsultarServicio", "Servicio", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Modificar Servicio", "ModificarServicio", "Servicio", new { area = "" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dpRepuestos" data-toggle="dropdown">Repuestos</a>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("Crear Repuestos", "CrearRepuesto", "Repuesto", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Consultar Repuestos", "ConsultarRepuesto", "Repuesto", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Modificar Repuesto", "ModificarRepuesto", "Repuesto", new { area = "" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown mr-4">
+                        <a class="nav-link dropdown-toggle" href="#" id="dpUsuarios" data-toggle="dropdown">Usuarios</a>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("Crear Usuario", "CrearUsuario", "Usuario", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Consultar Usuarios", "ConsultarUsuario", "Usuario", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Modificar Usuario", "ModificarUsuario", "Usuario", new { area = "" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        @*Logout*@
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Powered by Mi Taller Mecánico</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
