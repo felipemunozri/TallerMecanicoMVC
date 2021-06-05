@@ -1,0 +1,203 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Mi Taller Mecanico</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="~/Content/assets/css/default/app.min.css" rel="stylesheet" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="~/Content/assets/js/app.min.js"></script>
+    <script src="~/Content/assets/js/theme/default.min.js"></script>
+    <script src="~/WebJs/Base.js"></script>
+    <script src="~/WebJs/EditableClass.js"></script>
+    <link href="~/Content/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+    <!-- ================== END BASE JS ================== -->
+</head>
+<body>
+    <!-- begin #page-loader -->
+    <div id="page-loader" class="fade show"><span class="spinner"></span></div>
+    <!-- end #page-loader -->
+    <!-- begin #page-container -->
+    <div id="page-container" class="page-container fade page-without-sidebar page-header-fixed page-with-top-menu">
+
+        <input type="hidden" id="urlHome" value="@Url.Action("Index", "Home" )" />
+        <!-- begin #header -->
+        <div id="header" class="header navbar-default">
+            <!-- begin navbar-header -->
+            <div class="navbar-header">
+
+
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand"><span class="navbar-logo"></span><b>MiTaller</b>-<b>Mecánico</b></a>
+
+                <button type="button" class="navbar-toggle" data-click="top-menu-toggled">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- end navbar-header -->
+            <!-- begin header-nav -->
+            <ul class="navbar-nav navbar-right">
+                <li class="dropdown navbar-user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <img src="~/Content/assets/img/user/user-13.jpg" alt="">
+                        <!-- DESCOMENTAR PARA MOSTRAR NOMBRE USUARIO EN HEADER! -->
+                        @*<span class="d-none d-md-inline">@MiTallerMecanico.UTIL.SessionVariables.SESSION_DATOS_USUARIO.nombreUsuario</span> <b class="caret"></b>*@
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="@Url.Action("LogOut", "Login")" class="dropdown-item">Cerrar Sesión</a>
+                    </div>
+                </li>
+            </ul>
+
+
+            <!-- end header-nav -->
+        </div>
+        <!-- end #header -->
+        <!-- begin #top-menu -->
+        <div id="top-menu" class="top-menu">
+            <ul class="nav">
+
+                <li class="has-sub">
+                    <a href="javascript:;">
+                        <i class="fa fa-list-ol"></i>
+                        <span>Presupuestos</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="sub-menu overflow-hidden">
+                        <li><a href="@Url.Action("CrearPresupuesto", "Presupuesto")">Crear Presupuesto</a></li>
+                        <li><a href="@Url.Action("ModificarPresupuesto", "Presupuesto")">Modificar Presupuesto</a></li>
+                        <li><a href="@Url.Action("ConsultarPresupuesto", "Presupuesto")">Consultar Presupuetos</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-sub">
+                    <a href="javascript:;">
+                        <i class="fa fa-list-ol"></i>
+                        <span>Órdenes de Trabajo</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="sub-menu overflow-hidden">
+                        <li><a href="@Url.Action("CrearOrden", "OrdenTrabajo")">Crear Orden de Trabajo</a></li>
+                        <li><a href="@Url.Action("ModificarOrden", "OrdenTrabajo")">Modificar Orden de Trabajo</a></li>
+                        <li><a href="@Url.Action("ConsultarOrden", "OrdenTrabajo")">Consultar Órdenes de Trabajo</a></li>
+                        <li><a href="@Url.Action("AnularOrden", "OrdenTrabajo")">Anular Orden de Trabajo</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-sub">
+                    <a href="javascript:;">
+                        <i class="fa fa-align-left"></i>
+                        <span>Mantenedores</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="sub-menu overflow-hidden">
+                        <li class="has-sub">
+                            <a href="javascript:;">
+                                Clientes
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="@Url.Action("CrearCliente", "Cliente")">Crear Cliente</a></li>
+                                <li><a href="@Url.Action("ModificarCliente", "Cliente")">Modificar Cliente</a></li>
+                                <li><a href="@Url.Action("ConsultarCliente", "Cliente")">Consultar Clientes</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="javascript:;">
+                                Vehículos
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="@Url.Action("CrearVehiculo", "Vehiculo")">Crear Vehículo</a></li>
+                                <li><a href="@Url.Action("ModificarVehiculo", "Vehiculo")">Modificar Vehículo</a></li>
+                                <li><a href="@Url.Action("ConsultarVehiculo", "Vehiculo")">Consultar Vehículos</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="javascript:;">
+                                Servicios
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="@Url.Action("CrearServicio", "Servicio")">Crear Servicio</a></li>
+                                <li><a href="@Url.Action("ModificarServicio", "Servicio")">Modificar Servicio</a></li>
+                                <li><a href="@Url.Action("ConsultarServicio", "Servicio")">Consultar Servicios</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="javascript:;">
+                                Repuestos
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="@Url.Action("CrearRepuesto", "Repuesto")">Crear Repuesto</a></li>
+                                <li><a href="@Url.Action("ModificarRepuesto", "Repuesto")">Modificar Repuesto</a></li>
+                                <li><a href="@Url.Action("ConsultarRepuesto", "Repuesto")">Consultar Repuestos</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="javascript:;">
+                                Proveedores
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="@Url.Action("CrearProveedor", "Proveedor")">Crear Proveedor</a></li>
+                                <li><a href="@Url.Action("ModificarProveedor", "Proveedor")">Modificar Proveedor</a></li>
+                                <li><a href="@Url.Action("ConsultarProveedor", "Proveedor")">Consultar Proveedores</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="javascript:;">
+                                Usuarios
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="@Url.Action("CrearUsuario", "Usuario")">Crear Usuario</a></li>
+                                <li><a href="@Url.Action("ModificarUsuario", "Usuario")">Modificar Usuario</a></li>
+                                <li><a href="@Url.Action("ConsultarUsuario", "Usuario")">Consultar Usuarios</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-control menu-control-left show">
+                    <a href="javascript:;" data-click="prev-menu"><i class="fa fa-angle-left"></i></a>
+                </li>
+                <li class="menu-control menu-control-right show">
+                    <a href="javascript:;" data-click="next-menu"><i class="fa fa-angle-right"></i></a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- end #top-menu -->
+        <!-- begin #content -->
+        <div id="content" class="content">
+            @RenderBody()
+        </div>
+        <footer id="footer" class="footer">
+            <p>&copy; @DateTime.Now.Year - Powered by MiTaller-Mecánico</p>
+        </footer>
+        <!-- end theme-panel -->
+        <!-- begin scroll to top btn -->
+        <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+        <!-- end scroll to top btn -->
+
+    </div>
+    <!-- end page container -->
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/plugins/gritter/js/jquery.gritter.js"></script>
+    <script src="~/Content/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- ================== END BASE JS ================== -->
+</body>
+</html>

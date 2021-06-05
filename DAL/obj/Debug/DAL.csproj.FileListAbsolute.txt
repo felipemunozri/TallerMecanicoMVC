@@ -1,0 +1,9 @@
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerMecanico\MiTallerMecanico\DAL\bin\Debug\DAL.dll
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerMecanico\MiTallerMecanico\DAL\bin\Debug\DAL.pdb
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerMecanico\MiTallerMecanico\DAL\bin\Debug\log4net.dll
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerMecanico\MiTallerMecanico\DAL\bin\Debug\log4net.xml
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerMecanico\MiTallerMecanico\DAL\obj\Debug\DAL.csprojAssemblyReference.cache
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerMecanico\MiTallerMecanico\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerMecanico\MiTallerMecanico\DAL\obj\Debug\DAL.csproj.CopyComplete
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerMecanico\MiTallerMecanico\DAL\obj\Debug\DAL.dll
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerMecanico\MiTallerMecanico\DAL\obj\Debug\DAL.pdb

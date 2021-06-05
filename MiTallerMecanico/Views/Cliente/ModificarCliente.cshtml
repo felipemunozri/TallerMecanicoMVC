@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "ModificarCliente";
+}
+
+<h2>Modificar Cliente</h2>
+
+<!-- Panel Cliente -->
+<div class="row">
+
+    <div class="col-lg-12 ui-sortable">
+
+        <div class="panel panel-inverse" data-sortable-id="form-plugins-1">
+
+            <div class="panel-heading">
+                <h4 class="panel-title">Buscar Cliente</h4>
+                <div class="panel-heading-btn">
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>-->
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>-->
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>-->
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive form-inline">
+                    <table class="table table-profile">
+                        <tbody>
+                            <tr class="highlight">
+                                <td>Rut Cliente</td>
+                                <td>
+                                    <input type="text" name="txtIdOrden" class="form-control" min="1">
+                                </td>
+                                <td>
+                                    <input class="btn btn-success" type="button" name="btnBuscar" value="Buscar">
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Nombre</td>
+                                <td>
+                                    <input type="text" name="txtNomCliente" id="txtNomCliente" class="form-control" maxlength="30" tabindex="1" />
+                                </td>
+                                <td>Apellido</td>
+                                <td>
+                                    <input type="text" name="txtApeCliente" id="txtApeCliente" class="form-control" maxlength="30" tabindex="2" />
+                                </td>
+                                <td>Teléfono</td>
+                                <td>
+                                    <input type="number" name="txtTelCliente" id="txtTelCliente" class="form-control" min="0" max="999999999" tabindex="3" />
+                                </td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Email</td>
+                                <td>
+                                    <input type="email" name="txtMailCliente" id="txtMailCliente" class="form-control" maxlength="50" tabindex="4" />
+                                </td>
+                                <td>Dirección</td>
+                                <td>
+                                    <input type="text" name="txtDirCliente" id="txtDirCliente" class="form-control" maxlength="100" tabindex="5" />
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input class="btn btn-primary" type="button" name="btnModCliente" value="Modificar Cliente">
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

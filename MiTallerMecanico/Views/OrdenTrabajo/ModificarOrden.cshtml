@@ -1,0 +1,410 @@
+﻿
+@{
+    ViewBag.Title = "ModificarOrden";
+
+    string fechaactual = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<h2>Modificar Orden de Trabajo</h2>
+
+<!-- Panel Cliente & Vehiculo -->
+<div class="row">
+
+    <div class="col-lg-12 ui-sortable">
+
+        <div class="panel panel-inverse" data-sortable-id="form-plugins-3">
+
+            <div class="panel-heading">
+                <h4 class="panel-title">Buscar Orden de Trabajo</h4>
+                <div class="panel-heading-btn">
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>-->
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>-->
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>-->
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive form-inline">
+                    <table class="table table-profile">
+                        <tbody>
+                            <tr class="highlight">
+                                <td>ID Orden de Trabajo</td>
+                                <td>
+                                    <input type="number" name="txtIdOrden" class="form-control" min="1">
+                                </td>
+                                <td>
+                                    <input class="btn btn-success" type="button" name="btnBuscar" value="Buscar">
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Fecha</td>
+                                <td>
+                                    <input type="date" class="form-control" name="txtFecha" id="txtFecha" value=""  tabindex="-1" />
+                                </td>
+                                <td>Fecha entrega</td>
+                                <td>
+                                    <input type="date" class="form-control" name="txtFechaEntrega" id="txtFechaEntrega" min="@fechaactual" value="" tabindex="-1" />
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Estado</td>
+                                <td>
+                                    <select class="form-control" name="selEstado" id="selEstado">
+                                        <option selected value="">-- Seleccionar</option>
+                                        <option value="">VEHICULO INGRESADO</option>
+                                        <option value="">EN REPARACION</option>
+                                        <option value="">PARA RETIRO</option>
+                                        <option value="">ENTREGADO</option>
+                                    </select>
+                                </td>
+                                <td>Mecánico a cargo</td>
+                                <td>
+                                    <select class="form-control" name="selMecanico" id="selMecanico">
+                                        <option selected value="">-- Seleccionar</option>
+                                        <option value="">NICOLAS</option>
+                                        <option value="">FELIPE</option>
+                                    </select>
+                                </td>
+                                <td>Prioridad</td>
+                                <td>
+                                    <select class="form-control" name="selPrioridad" id="selPrioridad">
+                                        <option selected value="">-- Seleccionar</option>
+                                        <option value="">ALTA</option>
+                                        <option value="">MEDIA</option>
+                                        <option value="">BAJA</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="highlight">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Rut Cliente</td>
+                                <td>
+                                    <input type="text" name="txtRutCliente" id="txtRutCliente" class="form-control" maxlength="10" tabindex="3" />
+                                </td>
+                                <td>Nombre</td>
+                                <td>
+                                    <input type="text" name="txtNomCliente" id="txtNomCliente" class="form-control" maxlength="30" tabindex="4" />
+                                </td>
+                                <td>Apellido</td>
+                                <td>
+                                    <input type="text" name="txtApeCliente" id="txtApeCliente" class="form-control" maxlength="30" tabindex="5" />
+                                </td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Teléfono</td>
+                                <td>
+                                    <input type="number" name="txtTelCliente" id="txtTelCliente" class="form-control" min="0" max="999999999" tabindex="6" />
+                                </td>
+                                <td>Email</td>
+                                <td>
+                                    <input type="email" name="txtMailCliente" id="txtMailCliente" class="form-control" maxlength="50" tabindex="7" />
+                                </td>
+                                <td>Dirección</td>
+                                <td>
+                                    <input type="text" name="txtDirCliente" id="txtDirCliente" class="form-control" maxlength="100" tabindex="8" />
+                                </td>
+                            </tr>
+                            <tr class="highlight">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Tipo Vehículo</td>
+                                <td>
+                                    <select class="form-control" name="selTipoVehiculo" id="selTipoVehiculo">
+                                        <option selected value="">-- Seleccionar</option>
+                                        <option value="">AUTO</option>
+                                        <option value="">CAMION</option>
+                                        <option value="">MAQUINARIA</option>
+                                    </select>
+                                </td>
+                                <td>Patente</td>
+                                <td>
+                                    <input type="text" name="txtPatVehiculo" id="txtPatVehiculo" class="form-control" maxlength="6" tabindex="9" />
+                                </td>
+                                <td>Marca</td>
+                                <td>
+                                    <input type="text" name="txtMarVehiculo" id="txtMarVehiculo" class="form-control" maxlength="50" tabindex="10" />
+                                </td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Modelo</td>
+                                <td>
+                                    <input type="text" name="txtModVehiculo" id="txtModVehiculo" class="form-control" maxlength="50" tabindex="11" />
+                                </td>
+                                <td>Color</td>
+                                <td>
+                                    <input type="text" name="txtPatVehiculo" id="txtPatVehiculo" class="form-control" maxlength="6" tabindex="12" />
+                                </td>
+                                <td>Año</td>
+                                <td>
+                                    <input type="number" name="txtAnoVehiculo" id="txtAnoVehiculo" class="form-control" min="1000" max="9999" tabindex="13" />
+                                </td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Kilometraje</td>
+                                <td>
+                                    <input type="number" name="txtKilVehiculo" id="txtKilVehiculo" class="form-control" min="0" max="999999" tabindex="14" />
+                                </td>
+                                <td>Observaciones</td>
+                                <td colspan="3">
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <textarea name="txtObservaciones" id="txtObservaciones" class="form-control" style="width: 100%;" rows="2" maxlength="200" tabindex="15"> </textarea>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Panel agregar Servicio & Repuesto-->
+<div class="row">
+
+    <div class="col-lg-6 ui-sortable">
+
+        <div class="panel panel-inverse" data-sortable-id="form-plugins-4">
+
+            <div class="panel-heading ui-sortable-handle">
+                <h4 class="panel-title">Agregar Servicios y Repuestos</h4>
+                <div class="panel-heading-btn">
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>-->
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>-->
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>-->
+                </div>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="table-responsive form-inline">
+                    <table class="table table-profile">
+                        <tbody>
+                            <tr class="highlight">
+                                <td>Agregar Servicios</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Nombre</td>
+                                <td>
+                                    <select class="form-control" name="selServicio" id="selServicio">
+                                        <option selected>-- Seleccionar</option>
+                                        <option value="">Frenos</option>
+                                        <option value="">Motor</option>
+                                        <option value="">Aceite</option>
+                                    </select>
+                                </td>
+                                <td>Valor</td>
+                                <td>
+                                    <input type="number" name="txtValServicio" id="txtValServicio" class="form-control" min="0" max="99999999" placeholder="$" tabindex="" />
+                                </td>
+                                <td>
+                                    <input class="btn btn-primary" type="button" name="btnServicio" value="Agregar">
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Agregar Repuestos</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Nombre</td>
+                                <td>
+                                    <select class="form-control" name="selRepuesto" id="selRepuesto">
+                                        <option selected>-- Seleccionar</option>
+                                        <option value="">Frenos</option>
+                                        <option value="">Motor</option>
+                                        <option value="">Aceite</option>
+                                    </select>
+                                </td>
+                                <td>Cantidad</td>
+                                <td>
+                                    <input type="number" name="txtCantServicio" id="txtCantServicio" class="form-control" min="0" max="99999999" tabindex="" />
+                                </td>
+                                <td>Valor</td>
+                                <td>
+                                    <input type="number" name="txtValServicio" id="txtValServicio" class="form-control" min="0" max="99999999" placeholder="$" tabindex="" />
+                                </td>
+                                <td>
+                                    <input class="btn btn-primary" type="button" name="btnRepuesto" value="Agregar">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6 ui-sortable">
+
+        <div class="panel panel-inverse" data-sortable-id="table-basic-5">
+
+            <div class="panel-heading ui-sortable-handle">
+                <h4 class="panel-title">Detalle Presupuesto</h4>
+                <div class="panel-heading-btn">
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>-->
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>-->
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>-->
+                </div>
+            </div>
+
+
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-striped m-b-0">
+                        <thead>
+                            <tr>
+                                <th>Cantidad</th>
+                                <th>Detalle</th>
+                                <th>Monto</th>
+                                <th width="1%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>Frenos</td>
+                                <td>12000</td>
+                                <td class="with-btn" nowrap="">
+                                    <input class="btn btn-danger" type="button" name="btnBorrar" value="Borrar">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>Pastillas</td>
+                                <td>8000</td>
+                                <td class="with-btn" nowrap="">
+                                    <input class="btn btn-danger" type="button" name="btnBorrar" value="Borrar">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>Cambio aceite</td>
+                                <td>6000</td>
+                                <td class="with-btn" nowrap="">
+                                    <input class="btn btn-danger" type="button" name="btnBorrar" value="Borrar">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Panel Totales -->
+<div class="row">
+
+    <div class="col-lg-12 ui-sortable">
+
+        <div class="panel panel-inverse" data-sortable-id="form-plugins-6">
+
+            <div class="panel-heading ui-sortable-handle">
+                <h4 class="panel-title">Totales</h4>
+                <div class="panel-heading-btn">
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>-->
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>-->
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>-->
+                </div>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="table-responsive form-inline">
+                    <table class="table table-condensed">
+                        <tbody>
+                            <tr class="highlight">
+                                <td><b><span>Neto</span></b></td>
+                                <td>
+                                    <input disabled type="number" name="txtNeto" class="form-control" placeholder="$">
+                                </td>
+                                <td>
+                                    <input class="btn btn-primary" type="button" name="btnModOrden" value="Modificar Orden de Trabajo">
+                                </td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><b><span>IVA</span></b></td>
+                                <td>
+                                    <input disabled type="number" name="txtIVA" class="form-control" placeholder="$">
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><b><span>Total</span></b></td>
+                                <td>
+                                    <input disabled type="number" name="txtTotal" class="form-control" placeholder="$">
+                                </td>
+                                <td>
+                                    <input class="btn btn-success" type="button" name="btnPDF" value="Exportar a PDF">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

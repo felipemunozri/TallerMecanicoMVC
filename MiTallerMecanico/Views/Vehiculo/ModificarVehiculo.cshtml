@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "ModificarVehiculo";
+}
+
+<h2>Modificar Vehículo</h2>
+
+<!-- Panel Vehiculo -->
+<div class="row">
+
+    <div class="col-lg-12 ui-sortable">
+
+        <div class="panel panel-inverse" data-sortable-id="form-plugins-1">
+
+            <div class="panel-heading">
+                <h4 class="panel-title">Buscar Vehículo</h4>
+                <div class="panel-heading-btn">
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>-->
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>-->
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>-->
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive form-inline">
+                    <table class="table table-profile">
+                        <tbody>
+                            <tr class="highlight">
+                                <td>Patente</td>
+                                <td>
+                                    <input type="text" name="txtPatVehiculo" id="txtPatVehiculo" class="form-control" maxlength="6" tabindex="" />
+                                </td>
+                                <td>
+                                    <input class="btn btn-success" type="button" name="btnBuscar" value="Buscar">
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Rut Cliente</td>
+                                <td>
+                                    <input type="text" name="txtRutCliente" id="txtRutCliente" class="form-control" maxlength="10" tabindex="1" />
+                                </td>
+                                <td>Tipo Vehículo</td>
+                                <td>
+                                    <select class="form-control" name="selTipoVehiculo" id="selTipoVehiculo">
+                                        <option selected value="">-- Seleccionar</option>
+                                        <option value="">AUTO</option>
+                                        <option value="">CAMION</option>
+                                        <option value="">MAQUINARIA</option>
+                                    </select>
+                                </td>
+                                <td>Marca</td>
+                                <td>
+                                    <input type="text" name="txtMarVehiculo" id="txtMarVehiculo" class="form-control" maxlength="50" tabindex="4" />
+                                </td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Modelo</td>
+                                <td>
+                                    <input type="text" name="txtModVehiculo" id="txtModVehiculo" class="form-control" maxlength="50" tabindex="5" />
+                                </td>
+                                <td>Color</td>
+                                <td>
+                                    <input type="text" name="txtPatVehiculo" id="txtPatVehiculo" class="form-control" maxlength="6" tabindex="6" />
+                                </td>
+                                <td>Año</td>
+                                <td>
+                                    <input type="number" name="txtAnoVehiculo" id="txtAnoVehiculo" class="form-control" min="1000" max="9999" tabindex="7" />
+                                </td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Kilometraje</td>
+                                <td>
+                                    <input type="number" name="txtKilVehiculo" id="txtKilVehiculo" class="form-control" min="0" max="999999" tabindex="8" />
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input class="btn btn-primary" type="button" name="btnModVehiculo" value="Modificar Vehículo">
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
