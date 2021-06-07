@@ -19,5 +19,25 @@ namespace BLL
             return _Control.Login(usuario);
         }
 
+
+        public List<TipoVehiculoModel> ObtenerTiposVehiculos()
+        {
+            return _Control.ObtenerTiposVehiculos();
+        }
+
+        public List<RepuestoModel> ObtenerRepuestos() 
+        {
+            return _Control.ObtenerRepuestos();
+        }
+        public List<ServiciosModel> ObtenerServicios()
+        {
+            return _Control.ObtenerServicios();
+        }
+
+        public ClienteModel BuscarCliente(string rutCliente) {
+
+
+            return _Control.BuscarCliente(rutCliente);
+        }
     }
 }

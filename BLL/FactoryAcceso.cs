@@ -35,5 +35,81 @@ namespace BLL
         }
 
         #endregion}
+
+        #region Presupuesto
+
+        public  List<TipoVehiculoModel> ObtenerTiposVehiculos()
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_TipoVehiculo", new System.Collections.Hashtable()
+                {
+  
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<TipoVehiculoModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+        public List<RepuestoModel> ObtenerRepuestos()
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_Repuestos", new System.Collections.Hashtable()
+                {
+
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<RepuestoModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+
+        public List<ServiciosModel> ObtenerServicios()
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_Servicios", new System.Collections.Hashtable()
+                {
+
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<ServiciosModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+
+
+        public ClienteModel BuscarCliente(string rutCliente)
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_BuscarCliente", new System.Collections.Hashtable()
+                {
+                     {"rut", rutCliente}
+                }).Tables[0];
+                return UTIL.Mapper.BindData<ClienteModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+
+        #endregion
     }
 }
