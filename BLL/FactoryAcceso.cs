@@ -19,7 +19,7 @@ namespace BLL
         {
             try
             {
-                var data = new DBConector().EjecutarProcedimientoAlmacenado("SP_GET_LOGIN", new System.Collections.Hashtable()
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_LOGIN", new System.Collections.Hashtable()
                 {
                     {"Nombre", datosUsuarios.nombreUsuario},
                     {"Contrasena", datosUsuarios.passUsuario }
@@ -73,7 +73,7 @@ namespace BLL
             }
         }
 
-        public List<ServiciosModel> ObtenerServicios()
+        public List<ServicioModel> ObtenerServicios()
         {
             try
             {
@@ -81,7 +81,7 @@ namespace BLL
                 {
 
                 }).Tables[0];
-                return UTIL.Mapper.BindDataList<ServiciosModel>(data);
+                return UTIL.Mapper.BindDataList<ServicioModel>(data);
             }
             catch (Exception ex)
             {
@@ -101,6 +101,116 @@ namespace BLL
                      {"rut", rutCliente}
                 }).Tables[0];
                 return UTIL.Mapper.BindData<ClienteModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Cliente
+
+        public List<ClienteModel> ObtenerClientes()
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_Clientes", new System.Collections.Hashtable()
+                {
+
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<ClienteModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Usuario
+
+        public List<UsuarioModel> ObtenerUsuarios()
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_Usuarios", new System.Collections.Hashtable()
+                {
+
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<UsuarioModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Vehiculo
+
+        public List<VehiculoModel> ObtenerVehiculos()
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_Vehiculos", new System.Collections.Hashtable()
+                {
+
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<VehiculoModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Proveedor
+
+        public List<ProveedorModel> ObtenerProveedores()
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_Proveedores", new System.Collections.Hashtable()
+                {
+
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<ProveedorModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region TipoUsuario
+
+        public List<TipoUsuarioModel> ObtenerTiposUsuarios()
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_TipoUsuario", new System.Collections.Hashtable()
+                {
+
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<TipoUsuarioModel>(data);
             }
             catch (Exception ex)
             {

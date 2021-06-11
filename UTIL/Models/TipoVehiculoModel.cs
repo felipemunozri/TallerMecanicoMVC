@@ -8,8 +8,7 @@ namespace UTIL.Models
 {
     public class TipoVehiculoModel
     {
-        public int idTipoVehiculo { set; get; }
-         public string nombre { set; get;}
-
+        public int idTipoVehiculo { get; set; }
+        public string nombre { get; set; }
     }
 }

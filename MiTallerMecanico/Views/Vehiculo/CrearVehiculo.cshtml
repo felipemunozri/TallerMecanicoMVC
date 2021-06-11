@@ -1,6 +1,8 @@
-﻿
+﻿@using UTIL.Models;
 @{
     ViewBag.Title = "CrearVehiculo";
+
+    List<TipoVehiculoModel> tipoVehiculos = ViewBag.TipoVehiculos;
 }
 
 <h2>Crear Vehículo</h2>
@@ -39,10 +41,15 @@
                                 <td>Tipo Vehículo</td>
                                 <td>
                                     <select class="form-control" name="selTipoVehiculo" id="selTipoVehiculo">
-                                        <option selected value="">-- Seleccionar</option>
-                                        <option value="">AUTO</option>
-                                        <option value="">CAMION</option>
-                                        <option value="">MAQUINARIA</option>
+                                        <option selected value="-1">-- Seleccionar</option>
+                                        @{ 
+                                            for (int i = 0; i < tipoVehiculos.Count; i++)
+                                            {
+
+                                                <option value="@tipoVehiculos[i].idTipoVehiculo ">@tipoVehiculos[i].nombre </option>
+
+                                            }
+                                        }
                                     </select>
                                 </td>
                                 <td>Patente</td>

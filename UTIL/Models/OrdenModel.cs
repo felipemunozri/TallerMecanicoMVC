@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace UTIL.Models
 {
-    public class EncabezadoPresupuestoModel
+    public class OrdenModel
     {
-        int folioEncabezado { get; set; }
+        int folioOrden { get; set; }
+        int fk_idUsuario { get; set; }
         string fk_rutCliente { get; set; }
         string fk_patente { get; set; }
         DateTime fecha { get; set; }
+        DateTime fechaEntrega { get; set; }
+        string prioridad { get; set; }
         string observaciones { get; set; }
-        string estado { get; set; }
+        bool anulacion { get; set; }
         int neto { get; set; }
         int iva { get; set; }
         int total { get; set; }

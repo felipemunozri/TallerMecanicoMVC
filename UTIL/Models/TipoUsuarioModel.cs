@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace UTIL.Models
 {
-    public class RepuestoModel
+    public class TipoUsuarioModel
     {
-        public int idRepuesto { get; set; }
-        public string nombreRepuesto { get; set;}
+        public int idTipoUsuario { get; set; }
+        public string cargo { get; set; }
     }
 }

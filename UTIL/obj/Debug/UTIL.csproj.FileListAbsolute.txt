@@ -10,3 +10,9 @@ C:\Users\zero_cool\Desktop\Proyecto mvc\TallerDev\TallerMecanicoMVC\UTIL\obj\Deb
 C:\Users\zero_cool\Desktop\Proyecto mvc\TallerDev\TallerMecanicoMVC\UTIL\obj\Debug\UTIL.csproj.CoreCompileInputs.cache
 C:\Users\zero_cool\Desktop\Proyecto mvc\TallerDev\TallerMecanicoMVC\UTIL\obj\Debug\UTIL.dll
 C:\Users\zero_cool\Desktop\Proyecto mvc\TallerDev\TallerMecanicoMVC\UTIL\obj\Debug\UTIL.pdb
+C:\Users\felip\source\repos\AIEP\TallerMecanicoMVC\UTIL\bin\Debug\UTIL.dll
+C:\Users\felip\source\repos\AIEP\TallerMecanicoMVC\UTIL\bin\Debug\UTIL.pdb
+C:\Users\felip\source\repos\AIEP\TallerMecanicoMVC\UTIL\obj\Debug\UTIL.csprojAssemblyReference.cache
+C:\Users\felip\source\repos\AIEP\TallerMecanicoMVC\UTIL\obj\Debug\UTIL.csproj.CoreCompileInputs.cache
+C:\Users\felip\source\repos\AIEP\TallerMecanicoMVC\UTIL\obj\Debug\UTIL.dll
+C:\Users\felip\source\repos\AIEP\TallerMecanicoMVC\UTIL\obj\Debug\UTIL.pdb

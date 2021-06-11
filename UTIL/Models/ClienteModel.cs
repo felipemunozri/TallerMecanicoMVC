@@ -8,14 +8,11 @@ namespace UTIL.Models
 {
     public class ClienteModel
     {
-        public string rutCliente { set; get; }
-        public string nombreCliente { set; get; }
-        public string apellidoCliente { set; get; }
-        public string direccionCliente { set; get; }
-        public int telefonoCliente { set; get; }
-        public string correoCliente{set;get;}
-        
+        public string rutCliente { get; set; }
+        public string nombreCliente { get; set; }
+        public string apellidoCliente { get; set; }
+        public string direccionCliente { get; set; }
+        public int telefonoCliente { get; set; }
+        public string correoCliente { get; set; }
     } 
-
-
 }

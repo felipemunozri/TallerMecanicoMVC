@@ -1,6 +1,8 @@
-﻿
+﻿@using UTIL.Models;
 @{
     ViewBag.Title = "CrearUsuario";
+
+    List<TipoUsuarioModel> tipoUsuarios = ViewBag.TipoUsuarios;
 }
 
 <h2>Crear Usuario</h2>
@@ -29,9 +31,15 @@
                                 <td>Tipo de Usuario</td>
                                 <td>
                                     <select class="form-control" name="selTipoUsuario" id="selTipoUsuario">
-                                        <option selected>-- Seleccionar</option>
-                                        <option value="">ADMINISTRADOR</option>
-                                        <option value="">MECANICO</option>
+                                        <option selected value="-1">-- Seleccionar</option>
+                                        @{
+                                            for (int i = 0; i < tipoUsuarios.Count; i++)
+                                            {
+
+                                                <option value="@tipoUsuarios[i].idTipoUsuario ">@tipoUsuarios[i].cargo </option>
+
+                                            }
+                                        }
                                     </select>
                                 </td>
                                 <td>Nombre</td>

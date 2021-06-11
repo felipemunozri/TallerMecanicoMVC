@@ -1,7 +1,91 @@
-﻿
+﻿@using UTIL.Models;
 @{
     ViewBag.Title = "ConsultarVehiculo";
+
+    List<VehiculoModel> vehiculos = ViewBag.Vehiculos;
 }
 
 <h2>Consultar Vehículos</h2>
 
+<div class="panel panel-inverse width-full">
+    <div class="panel-heading">
+        <h4 class="panel-title">Listado de Vehículos </h4>
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="dataTable" class="table" cellspacing="0">
+            <thead>
+                <tr>
+
+                    <th width=100px>Patente</th>
+
+                    <th width=100px>Rut cliente</th>
+
+                    <th width=100px>Tipo</th>
+
+                    <th width=100px>Marca</th>
+
+                    <th width=100px>Modelo</th>
+
+                    <th width=100px>Color</th>
+
+                    <th width=100px>Año</th>
+
+                    <th width=100px>Kilometraje</th>
+
+                    <th width=100px>Estado</th>
+
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    try
+                    {
+                        for (int i = 0; i < vehiculos.Count; i++)
+                        {
+                            <tr>
+
+                                <td>@vehiculos[i].patente</td>
+
+                                <td>@vehiculos[i].fk_rutCliente</td>
+
+                                <td>@vehiculos[i].tipoVehiculo</td>
+
+                                <td>@vehiculos[i].marca</td>
+
+                                <td>@vehiculos[i].modelo</td>
+
+                                <td>@vehiculos[i].color</td>
+
+                                <td>@vehiculos[i].ano</td>
+
+                                <td>@vehiculos[i].kilometraje</td>
+
+                                <td>@vehiculos[i].estado</td>
+
+                                <td>
+                                    <input class="btn btn-primary btn-sm" type="button" name="btnEditarVehiculo" value="Editar">
+                                </td>
+                            </tr>
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>No existen Clientes</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

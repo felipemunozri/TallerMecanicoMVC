@@ -21,7 +21,7 @@ namespace MiTallerMecanico.Controllers
             List<RepuestoModel> repuestos = controlTaller().ObtenerRepuestos();
             ViewBag.Respuestos = repuestos;
 
-            List<ServiciosModel> servicios = controlTaller().ObtenerServicios();
+            List<ServicioModel> servicios = controlTaller().ObtenerServicios();
             ViewBag.Servicios = servicios;
             #endregion
 
@@ -35,6 +35,17 @@ namespace MiTallerMecanico.Controllers
 
         public ActionResult ModificarPresupuesto()
         {
+            #region dropdownlist
+            List<TipoVehiculoModel> tipoVehiculos = controlTaller().ObtenerTiposVehiculos();
+            ViewBag.TipoVehiculos = tipoVehiculos;
+
+            List<RepuestoModel> repuestos = controlTaller().ObtenerRepuestos();
+            ViewBag.Respuestos = repuestos;
+
+            List<ServicioModel> servicios = controlTaller().ObtenerServicios();
+            ViewBag.Servicios = servicios;
+            #endregion
+
             return View();
         }
         #endregion

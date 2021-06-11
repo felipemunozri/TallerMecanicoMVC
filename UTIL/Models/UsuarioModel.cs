@@ -8,9 +8,10 @@ namespace UTIL.Models
 {
    public class UsuarioModel
     {
-        public int IdUsuario{ get; set; }
+        public int idUsuario { get; set; }
         public int fk_idTipoUsuario { get; set; }
-
+        // Añadido nombre del cargo
+        public string cargo { get; set; }
         public string nombreUsuario { get; set; }
         public string passUsuario { get; set; }
     }
