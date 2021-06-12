@@ -1,8 +1,14 @@
-﻿
+﻿@using UTIL.Models;
 @{
     ViewBag.Title = "ModificarOrden";
 
+    string parametroUpdate = MiTallerMecanico.UTIL.ActualizacionJS.obtenerParametro();
     string fechaactual = DateTime.Now.ToString("yyyy-MM-dd");
+
+    List<UsuarioModel> usuarios = ViewBag.Usuarios;
+    List<TipoVehiculoModel> tipoVehiculos = ViewBag.TipoVehiculos;
+    List<RepuestoModel> repuestos = ViewBag.Respuestos;
+    List<ServicioModel> servicios = ViewBag.Servicios;
 }
 
 <h2>Modificar Orden de Trabajo</h2>
@@ -50,7 +56,7 @@
                             <tr class="highlight">
                                 <td>Fecha</td>
                                 <td>
-                                    <input type="date" class="form-control" name="txtFecha" id="txtFecha" value=""  tabindex="-1" />
+                                    <input type="date" class="form-control" name="txtFecha" id="txtFecha" value="" tabindex="-1" />
                                 </td>
                                 <td>Fecha entrega</td>
                                 <td>
@@ -74,8 +80,14 @@
                                 <td>
                                     <select class="form-control" name="selMecanico" id="selMecanico">
                                         <option selected value="">-- Seleccionar</option>
-                                        <option value="">NICOLAS</option>
-                                        <option value="">FELIPE</option>
+                                        @{
+                                            for (int i = 0; i < usuarios.Count; i++)
+                                            {
+
+                                                <option value="@usuarios[i].idUsuario">@usuarios[i].nombreUsuario </option>
+
+                                            }
+                                        }
                                     </select>
                                 </td>
                                 <td>Prioridad</td>
@@ -136,10 +148,15 @@
                                 <td>Tipo Vehículo</td>
                                 <td>
                                     <select class="form-control" name="selTipoVehiculo" id="selTipoVehiculo">
-                                        <option selected value="">-- Seleccionar</option>
-                                        <option value="">AUTO</option>
-                                        <option value="">CAMION</option>
-                                        <option value="">MAQUINARIA</option>
+                                        <option selected value="-1">-- Seleccionar</option>
+                                        @{
+                                            for (int i = 0; i < tipoVehiculos.Count; i++)
+                                            {
+
+                                                <option value="@tipoVehiculos[i].idTipoVehiculo ">@tipoVehiculos[i].nombre </option>
+
+                                            }
+                                        }
                                     </select>
                                 </td>
                                 <td>Patente</td>
@@ -223,10 +240,14 @@
                                 <td>Nombre</td>
                                 <td>
                                     <select class="form-control" name="selServicio" id="selServicio">
-                                        <option selected>-- Seleccionar</option>
-                                        <option value="">Frenos</option>
-                                        <option value="">Motor</option>
-                                        <option value="">Aceite</option>
+                                        <option selected values="-1">-- Seleccionar</option>
+                                        @{
+                                            for (int i = 0; i < servicios.Count; i++)
+                                            {
+                                                <option value="@servicios[i].idServicio">@servicios[i].nombreServicio</option>
+
+                                            }
+                                        }
                                     </select>
                                 </td>
                                 <td>Valor</td>
@@ -252,10 +273,14 @@
                                 <td>Nombre</td>
                                 <td>
                                     <select class="form-control" name="selRepuesto" id="selRepuesto">
-                                        <option selected>-- Seleccionar</option>
-                                        <option value="">Frenos</option>
-                                        <option value="">Motor</option>
-                                        <option value="">Aceite</option>
+                                        @{
+                                            for (int i = 0; i < repuestos.Count; i++)
+                                            {
+
+                                                <option value="@repuestos[i].idRepuesto">@repuestos[i].nombreRepuesto</option>
+
+                                            }
+                                        }
                                     </select>
                                 </td>
                                 <td>Cantidad</td>

@@ -48,7 +48,7 @@ namespace MiTallerMecanico.Controllers
                 {
                     var resultado = new UsuarioModel();
                     validador = 1;
-                    resultado.IdUsuario = 1;
+                    resultado.idUsuario = 1;
                     resultado.nombreUsuario = "adm";
                     resultado.fk_idTipoUsuario = 1;
 

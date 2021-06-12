@@ -21,7 +21,5 @@ namespace MiTallerMecanico.UTIL
         {
             return _control;
         }
-
-      
     }
 }
