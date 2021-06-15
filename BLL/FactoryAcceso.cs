@@ -19,7 +19,7 @@ namespace BLL
         {
             try
             {
-                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_LOGIN", new System.Collections.Hashtable()
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("SP_GET_LOGIN", new System.Collections.Hashtable()
                 {
                     {"Nombre", datosUsuarios.nombreUsuario},
                     {"Contrasena", datosUsuarios.passUsuario }
@@ -111,6 +111,27 @@ namespace BLL
         }
 
         #endregion
+
+        
+        public VehiculoModel BuscarVehiculo(string patente)
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_GET_BuscarVehiculo", new System.Collections.Hashtable()
+                {
+                     {"patente", patente}
+                }).Tables[0];
+                return UTIL.Mapper.BindData<VehiculoModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+
+
 
         #region Cliente
 

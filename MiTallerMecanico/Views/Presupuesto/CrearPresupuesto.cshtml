@@ -84,7 +84,7 @@
                                             for (int i = 0; i < tipoVehiculos.Count; i++)
                                             {
 
-                                                <option value="@tipoVehiculos[i].idTipoVehiculo ">@tipoVehiculos[i].nombre </option>
+                                                <option value="@tipoVehiculos[i].idTipoVehiculo">@tipoVehiculos[i].nombre </option>
 
                                             }
                                         }
@@ -183,10 +183,10 @@
                                 </td>
                                 <td>Valor</td>
                                 <td>
-                                    <input type="number" name="txtValServicio" id="txtValServicio" class="form-control" min="0" max="99999999" placeholder="$" tabindex="" />
+                                    <input type="number" name="txtValServicio" id="txtValServicio" class="form-control" min="0" max="99999999" />
                                 </td>
                                 <td>
-                                    <input class="btn btn-primary" type="button" name="btnServicio" value="Agregar">
+                                    <input class="btn btn-primary" type="button" name="btnServicio" value="Agregar" onclick="agregarFilaTabla();">
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -258,43 +258,15 @@
                     <table class="table table-striped m-b-0">
                         <thead>
                             <tr>
+                                <th>codigo</th>
+                                <th>Nombre</th>
                                 <th>Cantidad</th>
-                                <th>Detalle</th>
                                 <th>Monto</th>
                                 <th width="1%"></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>Frenos</td>
-                                <td>12000</td>
-                                <td class="with-btn" nowrap="">
-                                    <input class="btn btn-danger" type="button" name="btnBorrar" value="Borrar">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>Pastillas</td>
-                                <td>8000</td>
-                                <td class="with-btn" nowrap="">
-                                    <input class="btn btn-danger" type="button" name="btnBorrar" value="Borrar">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>Cambio aceite</td>
-                                <td>6000</td>
-                                <td class="with-btn" nowrap="">
-                                    <input class="btn btn-danger" type="button" name="btnBorrar" value="Borrar">
-                                </td>
-                            </tr>
+                        <tbody id="generaTabla">
+
                         </tbody>
                     </table>
                 </div>

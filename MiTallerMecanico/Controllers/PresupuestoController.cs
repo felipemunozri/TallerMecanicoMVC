@@ -55,8 +55,39 @@ namespace MiTallerMecanico.Controllers
 
             ClienteModel clientes = controlTaller().BuscarCliente(rutcliente);
 
-            return Json(new { cliente=clientes, Validador=true}, JsonRequestBehavior.AllowGet);
+            if (clientes == null)
+            {
+                return Json(new { cliente = clientes, Validador = false }, JsonRequestBehavior.AllowGet);
+            }
+            else {
+                return Json(new { cliente = clientes, Validador = true }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+
+        public ActionResult BuscarVehiculo(string patente) {
+
+            VehiculoModel vehiculo = controlTaller().BuscarVehiculo(patente);
+
+            if (vehiculo == null)
+            {
+                return Json(new { vehiculo = vehiculo, Validador = false }, JsonRequestBehavior.AllowGet);
+            }
+            else {
+
+                return Json(new { vehiculo = vehiculo, Validador = true }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult obtenerServiciosRespuestos()
+        {
+
+            List<ServicioModel> servicios = controlTaller().ObtenerServicios();
+            List<RepuestoModel> repuestos = controlTaller().ObtenerRepuestos();
+         
+           
+                return Json(new { servicios = servicios , repuestos=repuestos}, JsonRequestBehavior.AllowGet);
+            }
         }
 
     }
-}

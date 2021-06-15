@@ -56,5 +56,10 @@ namespace BLL
         {
             return _Control.BuscarCliente(rutCliente);
         }
+
+        public VehiculoModel BuscarVehiculo(string patente) {
+            
+            return _Control.BuscarVehiculo(patente);
+        }
     }
 }

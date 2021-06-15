@@ -21,5 +21,14 @@ namespace MiTallerMecanico.UTIL
         {
             return _control;
         }
+
+        [HttpPost]
+        public JsonResult obtieneServicios()
+        {
+
+            List<ServicioModel> ser = controlTaller().ObtenerServicios();
+
+            return MiTallerMecanico.UTIL.JsonResultResponse.ObtenerResponse<List<ServicioModel>>(ser);
+        }
     }
 }
