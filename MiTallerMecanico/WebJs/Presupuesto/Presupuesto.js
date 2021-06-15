@@ -1,6 +1,8 @@
 ﻿var servicios = [];
 var repuestos = [];
-var agregados = [];
+var ListaServicios = [];
+var ListaRepuestos = [];
+
 
 $(document).ready(function () {
     
@@ -101,26 +103,52 @@ function BuscarVehiculo() {
 }
 
 
+var contador = 0;
+function agregarFilaTablaServicio() {
+    var seleccion = $("#selServicio").val();
+    var valor = $("#txtValServicio").val();
+    var cantidad = '1';
+    var objeto;
+    $.ajax({
+        type: "post",
+        url: "obtenerServiciosRespuestos",
+        data: {
 
-//function agregarFilaTablaServicio() {
+        },
+        async: false,
+        success: function (data) {
+            servicios = data.servicios;
+            repuestos = data.repuestos;
+            objeto = servicios.find(m => m.idServicio ==seleccion);
+           
 
-//    var servicio = $("#selServicio").val();
-//    var valorServicio = $("#txtValServicio").val();
-//    var cantidad = ("1");
+            var insertar_texto = '<tr id="_'+contador +'">' + '<th>' + objeto.idServicio + '</th>'
+                + '<th>' + objeto.nombreServicio + '</th>' + '<th>' + cantidad + '</th>'
+                + '<th>' + valor + '</th>' + '<th> <a id="thservicio" href="#" onclick="eliminarFila(' + contador + ');"><img src="../Content/Image/delete.png" /></th > '  ;
 
-//    if (servicio == "-1" || valorServicio=="" || cantidad=="") {
-//        abrirError("Error datos", "Favor,Complete todos los campos para continuar");
+            var nuevo_campo = $(insertar_texto);
+            $("#generaTabla").append(nuevo_campo);
+            
+            var agregado = {
+                idServicio: objeto.idServicio,
+                nombreServicio: objeto.nombreServicio,
+                valorServicio: valor
 
-//    } else {
-//        var contador = 0;
+            };
 
-//        var texto_insertar =
-//            '<tr id="id_' + contador + '" class=thproductolist' + contador + '">'
-//            + '<td><span id="lblCodigo_'+ contador + '">' + codigo   
+            ListaServicios.push(agregado);
 
-//    }
-
+           
+        },
+        error: function (a, b, c) {
+            console.log(a, b, c);
+        },
+        async: false
+    });
+   
  
 
-//}
+}
+
+function eliminarFila()
 

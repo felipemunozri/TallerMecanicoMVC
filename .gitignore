@@ -398,4 +398,6 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudio
 
 # Web.config
-Web.config
+/MiTallerMecanico/Web.config
+
+.vs/MiTallerMecanico/config/applicationhost.config
