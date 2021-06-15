@@ -105,8 +105,8 @@ function BuscarVehiculo() {
 
 var contador = 0;
 function agregarFilaTablaServicio() {
-    var seleccion = $("#selServicio").val();
-    var valor = $("#txtValServicio").val();
+    var seleccion = $("#selServicio").val(); // obtengo el id del servicio
+    var valor = $("#txtValServicio").val(); 
     var cantidad = '1';
     var objeto;
     $.ajax({
@@ -122,9 +122,9 @@ function agregarFilaTablaServicio() {
             objeto = servicios.find(m => m.idServicio ==seleccion);
            
 
-            var insertar_texto = '<tr id="_'+contador +'">' + '<th>' + objeto.idServicio + '</th>'
+            var insertar_texto = '<tr id="id_'+contador +'">' + '<th>' + objeto.idServicio + '</th>'
                 + '<th>' + objeto.nombreServicio + '</th>' + '<th>' + cantidad + '</th>'
-                + '<th>' + valor + '</th>' + '<th> <a id="thservicio" href="#" onclick="eliminarFila(' + contador + ');"><img src="../Content/Image/delete.png" /></th > '  ;
+                + '<th>' + valor + '</th>' + '<th> <a id="thservicio" href="#generaTabla" onclick="eliminarFila(' + contador + ');"><img src="../Content/Image/delete.png" /></th > '  ;
 
             var nuevo_campo = $(insertar_texto);
             $("#generaTabla").append(nuevo_campo);
@@ -135,7 +135,7 @@ function agregarFilaTablaServicio() {
                 valorServicio: valor
 
             };
-
+            contador++;
             ListaServicios.push(agregado);
 
            
@@ -150,5 +150,14 @@ function agregarFilaTablaServicio() {
 
 }
 
-function eliminarFila()
+function eliminarFila(filaDelete) {
+
+    fila = $('#generaTabla tr[id=id_' + filaDelete + ']'); // paso id del tr  a la variable fila
+    ListaServicios = jQuery.grep(ListaServicios, function (value) {
+        return value.contador !== filaDelete;
+    });
+
+    fila.remove();
+
+}
 
