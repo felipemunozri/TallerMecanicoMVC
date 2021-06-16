@@ -217,14 +217,14 @@
                                 </td>
                                 <td>Cantidad</td>
                                 <td>
-                                    <input type="number" name="txtCantServicio" id="txtCantServicio" class="form-control" min="0" max="99999999" tabindex="" />
+                                    <input type="number" name="txtCantRepuesto" id="txtCantRepuesto" class="form-control" value="1" min="1" max="99999999" tabindex="" />
                                 </td>
                                 <td>Valor</td>
                                 <td>
-                                    <input type="number" name="txtValServicio" id="txtValServicio" class="form-control" min="0" max="99999999" placeholder="$" tabindex="" />
+                                    <input type="number" name="txtValRepuesto" id="txtValRepuesto" class="form-control"  value="1" min="1" max="99999999" placeholder="$" tabindex="" />
                                 </td>
                                 <td>
-                                    <input class="btn btn-primary" type="button" name="btnRepuesto" value="Agregar">
+                                    <input class="btn btn-primary" type="button" name="btnRepuesto" value="Agregar" onclick="agregarFilaTablaRepuesto();">
                                 </td>
                             </tr>
                         </tbody>
@@ -304,7 +304,7 @@
                             <tr class="highlight">
                                 <td><b><span>Neto</span></b></td>
                                 <td>
-                                    <input disabled type="number" name="txtNeto" class="form-control" placeholder="$">
+                                    <input disabled type="number" id="txtNeto" name="txtNeto" class="form-control" placeholder="$">
                                 </td>
                                 <td>
                                     <input class="btn btn-primary" type="button" name="btnCreaPresupuesto" value="Crear Presupuesto">
@@ -313,14 +313,14 @@
                             <tr class="highlight">
                                 <td><b><span>IVA</span></b></td>
                                 <td>
-                                    <input disabled type="number" name="txtIVA" class="form-control" placeholder="$">
+                                    <input disabled type="number" name="txtIVA" id="txtIVA" class="form-control" placeholder="$">
                                 </td>
                                 <td></td>
                             </tr>
                             <tr class="highlight">
                                 <td><b><span>Total</span></b></td>
                                 <td>
-                                    <input disabled type="number" name="txtTotal" class="form-control" placeholder="$">
+                                    <input disabled type="number" name="txtTotal" id="txtTotal" class="form-control" placeholder="$">
                                 </td>
                                 <td>
                                     <input class="btn btn-success" type="button" name="btnPDF" value="Exportar a PDF">
