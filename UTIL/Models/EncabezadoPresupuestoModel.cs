@@ -8,14 +8,21 @@ namespace UTIL.Models
 {
     public class EncabezadoPresupuestoModel
     {
-        int folioEncabezado { get; set; }
-        string fk_rutCliente { get; set; }
-        string fk_patente { get; set; }
-        DateTime fecha { get; set; }
-        string observaciones { get; set; }
-        string estado { get; set; }
-        int neto { get; set; }
-        int iva { get; set; }
-        int total { get; set; }
+        public int folioEncabezado { get; set; }
+        
+        public string fk_rutCliente { get; set; }
+        
+        public string fk_patente { get; set; }
+
+        public DateTime fecha { get; set; }
+        public string observaciones { get; set; }
+
+        public string estado { get; set; }
+
+        public int neto { get; set; }
+
+        public int iva { get; set; }
+
+        public int total { get; set; }
     }
 }

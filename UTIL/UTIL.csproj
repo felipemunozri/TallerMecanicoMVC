@@ -46,8 +46,12 @@
     <Compile Include="LogUser.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Models\ClienteModel.cs" />
+    <Compile Include="Models\DetallePresuModel.cs" />
+    <Compile Include="Models\DetallePresupuestoModel.cs" />
+    <Compile Include="Models\EncabezadoDetalle.cs" />
     <Compile Include="Models\EncabezadoPresupuestoModel.cs" />
     <Compile Include="Models\OrdenModel.cs" />
+    <Compile Include="Models\PresupuestoModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
     <Compile Include="Models\RepuestoModel.cs" />
     <Compile Include="Models\RespuestaModel.cs" />

@@ -6302,6 +6302,7 @@
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="WebJs\Base.js" />
     <Content Include="WebJs\Login\Login.js" />
+    <Content Include="WebJs\Presupuesto\ConsultaPresupuesto.js" />
     <Content Include="WebJs\Presupuesto\Presupuesto.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\css\estilotables.css" />

@@ -110,9 +110,115 @@ namespace BLL
             }
         }
 
+        public List<PresupuestoModel> obtenerPresupuestos()
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_SP_GET_Presupuestos", new System.Collections.Hashtable()
+                {
+                     
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<PresupuestoModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                LogUser.agregarLog(error);
+                return null;
+            }
+        }
+
+        public RespuestaModel AgregarEncabezado(EncabezadoPresupuestoModel presupuesto)
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("SP_INS_EncabezadoPresupuesto", new System.Collections.Hashtable()
+                {
+                    {"rutcliente",presupuesto.fk_rutCliente},
+                    {"patente",presupuesto.fk_patente},
+                    { "fecha",presupuesto.fecha},
+                    { "observaciones",presupuesto.observaciones},
+                    { "estado",presupuesto.estado},
+                    { "neto", presupuesto.neto},
+                    { "iva", presupuesto.iva},
+                    { "total",presupuesto.total}
+                }).Tables[0];
+                return UTIL.Mapper.BindData<RespuestaModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return null;
+            }
+        }
+
+        public RespuestaModel AgregarDetalle(DetallePresupuestoModel detalle,int id)
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("SP_INS_DetallePresupuesto", new System.Collections.Hashtable()
+                {
+                    {"FolioEncabezado",id},
+                    {"id",detalle.id},
+                    { "cantidad",detalle.cantidad},
+                    { "Tipo",detalle.Tipo},
+                    { "subTotal",detalle.subTotal}
+                    
+                }).Tables[0];
+                return UTIL.Mapper.BindData<RespuestaModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return null;
+            }
+        }
+
+
+
+        public List<EncabezadoDetalle> obtenerEncabezadoDetalle( int _IdPresu)
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_SP_GET_EncabezadoDetalle", new System.Collections.Hashtable()
+                {
+                    {"id_Encabezado",_IdPresu}
+                    
+
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<EncabezadoDetalle>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return null;
+            }
+        }
+
+
+        public List<DetallePresuModel> obtenerDetalle(int _IdPresu)
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_SP_GET_DetallePrespuesto", new System.Collections.Hashtable()
+                {
+                    {"id_Encabezado",_IdPresu}
+
+
+                }).Tables[0];
+                return UTIL.Mapper.BindDataList<DetallePresuModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return null;
+            }
+        }
+
+
         #endregion
 
-        
+
         public VehiculoModel BuscarVehiculo(string patente)
         {
             try

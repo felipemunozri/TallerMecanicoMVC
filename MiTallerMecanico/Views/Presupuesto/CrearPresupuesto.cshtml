@@ -42,7 +42,7 @@
                             <tr class="highlight">
                                 <td>Rut Cliente</td>
                                 <td>
-                                    <input type="text" name="txtRutCliente" id="txtRutCliente" class="form-control" maxlength="10" tabindex="1" values=""/>
+                                    <input type="text" name="txtRutCliente" id="txtRutCliente" class="form-control" maxlength="12" tabindex="1" oninput="checkRut(this)"/>
                                 </td>
                                 <td>Nombre</td>
                                 <td>
@@ -307,7 +307,7 @@
                                     <input disabled type="number" id="txtNeto" name="txtNeto" class="form-control" placeholder="$">
                                 </td>
                                 <td>
-                                    <input class="btn btn-primary" type="button" name="btnCreaPresupuesto" value="Crear Presupuesto">
+                                    <input class="btn btn-primary" type="button" name="btnCreaPresupuesto" value="Crear Presupuesto" onclick="agregarCabecera();">
                                 </td>
                             </tr>
                             <tr class="highlight">

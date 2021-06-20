@@ -30,6 +30,9 @@ namespace MiTallerMecanico.Controllers
 
         public ActionResult ConsultarPresupuesto()
         {
+            List<PresupuestoModel> presu = controlTaller().obtenerPresupuestos();
+            ViewBag.presu = presu;
+
             return View();
         }
 
@@ -88,6 +91,62 @@ namespace MiTallerMecanico.Controllers
            
                 return Json(new { servicios = servicios , repuestos=repuestos}, JsonRequestBehavior.AllowGet);
             }
+
+        [HttpPost]
+        public ActionResult AgregarPresupuesto(EncabezadoPresupuestoModel presupuesto, List<DetallePresupuestoModel> detalle) {
+
+            RespuestaModel id_encabezado = controlTaller().AgregarEncabezado(presupuesto);
+
+            for (int i=0;i<detalle.Count;i++) {
+
+              RespuestaModel Detalle= controlTaller().AgregarDetalle(detalle[i],Convert.ToInt32(id_encabezado.id_encabezado));
+            
+            }
+            if (id_encabezado == null && detalle==null)
+            {
+
+                return Json(new { Validador = false }, JsonRequestBehavior.AllowGet);
+            }
+            else {
+                return Json(new { Validador = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            
+        }
+
+
+        [HttpPost]
+        public JsonResult DetallePresupuesto(int _IdPresu) {
+
+            List<EncabezadoDetalle> enca = controlTaller().obtenerEncabezadoDetalle(_IdPresu);
+
+            List<DetallePresuModel> deta = controlTaller().obtenerDetalle(_IdPresu);
+
+
+
+
+            return Json(new { Cabecera =enca, Detalle =deta }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+        [HttpPost]
+        public JsonResult EditarPresupuesto(int _IdPresu)
+        {
+
+            List<EncabezadoDetalle> enca = controlTaller().obtenerEncabezadoDetalle(_IdPresu);
+
+            List<DetallePresuModel> deta = controlTaller().obtenerDetalle(_IdPresu);
+
+
+
+
+            return Json(new { Cabecera = enca, Detalle = deta }, JsonRequestBehavior.AllowGet);
         }
 
     }
+
+
+
+}

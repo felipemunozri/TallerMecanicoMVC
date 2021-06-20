@@ -11,5 +11,7 @@ namespace UTIL.Models
         public bool Verificador { get; set; }
         public string Mensaje { get; set; }
         public string RutaArchivo { get; set; }
+
+        public decimal id_encabezado { get; set; }
     }
 }

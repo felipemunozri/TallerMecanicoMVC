@@ -355,7 +355,7 @@ function validaRut(rut) {
     if (dvEsperado != dv) { return "RUT Inválido"; }
 
     // Si todo sale bien, eliminar errores (decretar que es válido)
-    return '';
+    return 'ok';
 }
 
 function validaEmail(mail) {

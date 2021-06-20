@@ -1,7 +1,6 @@
-﻿var servicios = [];
-var repuestos = [];
-var ListaServicios = [];
-var ListaRepuestos = [];
+﻿
+
+var Lista = [];
 
 
 $(document).ready(function () {
@@ -13,10 +12,16 @@ $(document).ready(function () {
 
     });
    
-
-
     $("#txtRutCliente").change(function () {
-        BuscarCliente();
+        var rut = $("#txtRutCliente").val();
+
+        if (validaRut(rut) == "ok") {
+            BuscarCliente();
+        } else {
+            abrirError("Usuario", "Este rut es incorrecto");
+        }
+
+        
   
     });
 
@@ -27,6 +32,42 @@ $(document).ready(function () {
     
 
 });
+
+
+
+
+function checkRut() {
+    var sRut1 = document.getElementById("txtRutCliente").value;
+    sRut1 = sRut1.replace('-', '');// se elimina el guion
+    sRut1 = sRut1.replace('.', '');// se elimina el primer punto
+    sRut1 = sRut1.replace('.', '');// se elimina el segundo punto
+    sRut1 = sRut1.replace(/k$/, "K");
+    document.getElementById("txtRutCliente").value = sRut1;
+    //contador de para saber cuando insertar el . o la -
+    var nPos = 0;
+    //Guarda el rut invertido con los puntos y el gui&oacute;n agregado
+    var sInvertido = "";
+    //Guarda el resultado final del rut como debe ser
+    var sRut = "";
+    for (var i = sRut1.length - 1; i >= 0; i--) {
+        sInvertido += sRut1.charAt(i);
+        if (i == sRut1.length - 1)
+            sInvertido += "-";
+        else if (nPos == 3) {
+            sInvertido += ".";
+            nPos = 0;
+        }
+        nPos++;
+    }
+    for (var j = sInvertido.length - 1; j >= 0; j--) {
+        if (sInvertido.charAt(sInvertido.length - 1) != ".")
+            sRut += sInvertido.charAt(j);
+        else if (j != sInvertido.length - 1)
+            sRut += sInvertido.charAt(j);
+    }
+    //Pasamos al campo el valor formateado
+    document.getElementById("txtRutCliente").value = sRut.toUpperCase();
+}
 
 function ValorSugerido() {
     var seleccion = $("#selServicio").val(); // obtengo el id del servicio
@@ -58,12 +99,63 @@ function ValorSugerido() {
 
 
 
+function agregarCabecera() {
+    var rut = $("#txtRutCliente").val();
+    rut = rut.replace('.', '');
+    rut = rut.replace('.', '');
+    var cabecera = {
+        fk_rutCliente:rut,
+        fk_patente: $("#txtPatVehiculo").val(),
+        fecha: $("#txtFecha").val(),
+        observaciones: $("#txtObservaciones").val(),
+        estado: "1",
+        neto: $("#txtNeto").val(),
+        iva: $("#txtIVA").val(),
+        total: $("#txtTotal").val()
+    };
+
+    
+
+
+    $.ajax({
+        type: "post",
+        url: "AgregarPresupuesto",
+        data: {
+            presupuesto: cabecera,
+            detalle : Lista
+        },
+        async: false,
+        success: function (data) {
+            if (data.Validador==true) {
+
+                abrirInformacion("Usuario", "Presupuesto generado");
+
+
+            } else {
+                abrirError("usuario","presupuesto no generado");
+
+            }
+
+            
+
+        },
+        error: function (a, b, c) {
+            console.log(a, b, c);
+        },
+        async: false
+    });
+
+}
+
+
 
 
 
 
 function BuscarCliente(){
     var rutCliente = $("#txtRutCliente").val();
+    rutCliente = rutCliente.replace('.', '');
+    rutCliente = rutCliente.replace('.', '');
         $.ajax({
             type: "post",
             url: "BuscarCliente",
@@ -163,20 +255,20 @@ function agregarFilaTablaServicio() {
 
             var insertar_texto = '<tr id="id_'+contador +'">' + '<th>' + objeto.idServicio + '</th>'
                 + '<th>' + objeto.nombreServicio + '</th>' + '<th>' + cantidad + '</th>'
-                + '<th>' + valor + '</th>' + '<th> <a id="thservicio" href="#generaTabla" onclick="eliminarFila(' + contador + ',' +objeto.idServicio+');"><img src="../Content/Image/delete.png" /></th > '  ;
+                + '<th>' + formatearNumero(valor,"$") + '</th>' + '<th> <a id="thservicio" href="#generaTabla" onclick="eliminarFila(' + contador + ',' +objeto.idServicio+');"><img src="../Content/Image/delete.png" /></th > '  ;
 
             var nuevo_campo = $(insertar_texto);
             $("#generaTabla").append(nuevo_campo);
             
             var agregado = {
-                idServicio: objeto.idServicio,
-                nombreServicio: objeto.nombreServicio,
-                valorServicio: valor,
+                id:objeto.idServicio,
                 cantidad: cantidad,
+                Tipo:'S',
+                subTotal: valor,               
                 contador: contador
             };
             contador++;
-            ListaServicios.push(agregado);
+            Lista.push(agregado);
             calculaTabla();
            
         },
@@ -213,20 +305,20 @@ function agregarFilaTablaRepuesto() {
 
             var insertar_texto = '<tr id="id_' + contador + '">' + '<th>' + objeto.idRepuesto + '</th>'
                 + '<th>' + objeto.nombreRepuesto + '</th>' + '<th>' + cantidad + '</th>'
-                + '<th>' + valorFinal + '</th>' + '<th> <a id="thservicio" href="#generaTabla" onclick="eliminarFila(' + contador + ');"><img src="../Content/Image/delete.png" /></th > ';
+                + '<th>' + formatearNumero(valorFinal, "$") + '</th>' + '<th> <a id="thservicio" href="#generaTabla" onclick="eliminarFila(' + contador + ');"><img src="../Content/Image/delete.png" /></th > ';
 
             var nuevo_campo = $(insertar_texto);
             $("#generaTabla").append(nuevo_campo);
 
             var agregado = {
-                idRepuesto: objeto.idRepuesto,
-                nombreRepuesto: objeto.nombreRepuesto,
-                valor: valorFinal,
+                id: objeto.idRepuesto,
                 cantidad: cantidad,
+                Tipo:'R',    
+                subTotal:valorFinal,               
                 contador:contador
             };
             contador++;
-            ListaRepuestos.push(agregado);
+            Lista.push(agregado);
             calculaTabla();
 
         },
@@ -245,13 +337,10 @@ function agregarFilaTablaRepuesto() {
 function eliminarFila(filaDelete) {
 
     fila = $('#generaTabla tr[id=id_' + filaDelete + ']'); // paso id del tr  a la variable fila
-    ListaServicios = jQuery.grep(ListaServicios, function (value) {
+    Lista= jQuery.grep(Lista, function (value) {
         return value.contador !== filaDelete;
     });
 
-    ListaRepuestos = jQuery.grep(ListaRepuestos, function (value) {
-        return value.contador !== filaDelete;
-    });
     
     fila.remove();
     calculaTabla();
@@ -263,31 +352,27 @@ function eliminarFila(filaDelete) {
 function calculaTabla() {
 
     var aux = 0;
-    var auxrep = 0;
     var neto = 0;
-    var netoR = 0;
+
     var netoTotal = 0;
     var iva;
     var Total;
 
-    for (i = 0; i < ListaServicios.length; i++) {
+    for (i = 0; i < Lista.length; i++) {
 
         aux = Number(aux) + Number(neto);
-        neto = Number(aux) + Number(ListaServicios[i].valorServicio);
+        neto = Number(aux) + Number(Lista[i].subTotal);
 
     }
-    for (i = 0; i < ListaRepuestos.length; i++) {
-        auxrep = Number(auxrep) + Number(netoR);
-        netoR = Number(aux) + Number(ListaRepuestos[i].valor);
-
-    }
-    netoTotal = Math.round(netoR + neto);
+    netoTotal =parseInt(Math.round(neto));
     iva = Math.round( netoTotal * 0.19);
     Total =Math.round(netoTotal + iva);
 
-    $("#txtNeto").val(agregarSeparadorMiles(netoTotal));
-    $("#txtIVA").val(agregarSeparadorMiles(iva));
-    $("#txtTotal").val(agregarSeparadorMiles(Total));
+  
+
+    $("#txtNeto").val(netoTotal);
+    $("#txtIVA").val(iva);
+    $("#txtTotal").val(Total);
     
 
 }

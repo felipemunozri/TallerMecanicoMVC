@@ -23,6 +23,10 @@ namespace BLL
             return _Control.ObtenerTiposVehiculos();
         }
 
+        public List<PresupuestoModel> obtenerPresupuestos() {
+            return _Control.obtenerPresupuestos();
+        }
+
         public List<RepuestoModel> ObtenerRepuestos() 
         {
             return _Control.ObtenerRepuestos();
@@ -60,6 +64,28 @@ namespace BLL
         public VehiculoModel BuscarVehiculo(string patente) {
             
             return _Control.BuscarVehiculo(patente);
+        }
+
+
+        public RespuestaModel AgregarEncabezado(EncabezadoPresupuestoModel presupuesto) {
+
+            return _Control.AgregarEncabezado(presupuesto);
+        }
+
+        public RespuestaModel AgregarDetalle(DetallePresupuestoModel detalle, int id) {
+
+            return _Control.AgregarDetalle(detalle,id);
+        }
+
+
+        public List<EncabezadoDetalle> obtenerEncabezadoDetalle(int _IdPresu) {
+
+            return _Control.obtenerEncabezadoDetalle(_IdPresu);
+        }
+
+        public List<DetallePresuModel> obtenerDetalle(int _IdPresu) {
+
+            return _Control.obtenerDetalle(_IdPresu);
         }
     }
 }

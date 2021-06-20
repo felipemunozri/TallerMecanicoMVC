@@ -1,7 +1,203 @@
-﻿
+﻿@using UTIL.Models;
 @{
     ViewBag.Title = "ConsultarPresupuesto";
+    List<PresupuestoModel> presu = ViewBag.Presu;
+    string parametroUpdate = MiTallerMecanico.UTIL.ActualizacionJS.obtenerParametro();
+
 }
+<script src="~/WebJs/Presupuesto/ConsultaPresupuesto.js?@parametroUpdate"></script>
 
-<h2>Consultar Presupuestos</h2>
+<div class="panel panel-inverse width-full">
+    <div class="panel-heading">
+        <h4 class="panel-title">Listado de Clientes </h4>
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="dataTable" class="table" cellspacing="0">
+            <thead>
+                <tr>
 
+                    <th>id</th>
+
+                    <th>Cliente</th>
+
+                    <th>Rut</th>
+
+                    <th>Patente</th>
+
+                    <th>Marca</th>
+
+                    <th>Modelo</th>
+
+                    <th>Fecha</th>
+
+                    <th>Neto</th>
+
+                    <th>Iva</th>
+
+                    <th>Total</th>
+
+                    <th>Estado</th>
+
+                    <th></th>
+                 
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    try
+                    {
+                        for (int i = 0; i < presu.Count; i++)
+                        {
+                                <tr>
+
+                                    <td>@presu[i].folioEncabezado</td>
+
+                                    <td>@presu[i].Nombre</td>
+
+                                    <td>@presu[i].rutCliente</td>
+
+                                    <td>@presu[i].patente</td>
+
+                                    <td>@presu[i].marca </td>
+
+                                    <td>@presu[i].modelo </td>
+
+                                    <td>@presu[i].fecha </td>
+
+                                    <td>$@presu[i].neto.ToString("N0")</td>
+
+                                    <td>$@presu[i].iva.ToString("N0")</td>
+
+                                    <td>$@presu[i].total.ToString("N0")</td>
+
+                                    <td>@presu[i].Estado</td>
+
+                                    <td>
+                                        <input class="btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#DetallePresupuesto" onclick="DetallePresupuesto(@presu[i].folioEncabezado);" value="Detalle">
+                                        <input class="btn btn btn-success btn-xs" type="button"data-toggle="modal" data-target="#DetalleEncabezado"  name="btnEditarPresupuesto" onclick="EditarPresupuesto(@presu[i].folioEncabezado);" value="Editar">
+
+                                    </td>
+
+                                  
+
+                                    </tr>
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>No existen Clientes</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="DetallePresupuesto" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detalle Presupuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetallePresupuesto" class="table table-profile"></table>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetallePresupuestoDetalle" class="table table-profile"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DetalleEncabezado" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Cabecera Presupuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblCabecera" class="table table-profile"></table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+//editar detalle
+<div id="DetalleDetalle" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detalle Presupuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetalle" class="table table-profile">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Codigo</th>
+                                        <th>Detalle </th>
+                                        <th>Cantidad</th>                                        
+                                        <th>Unidad</th>
+                                        <th>Sub Total</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
