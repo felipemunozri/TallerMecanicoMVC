@@ -1,6 +1,26 @@
 ﻿
+var datosDetalle = 0;
 
 
+$(document).ready(function () {
+
+    $("#txtCantidad").change(function () {
+        var cantidad = $("#txtCantidad").val();
+        var subtotal = $("#txtSubtotal").val();
+        var total = Number(cantidad) * Number(subtotal);
+        $("#txtTotal").val(total);
+    });
+
+    $("#txtSubtotal").change(function () {
+
+        var subtotal = $("#txtSubtotal").val();
+
+        $("#txtTotal").val(subtotal);
+
+    });
+
+
+});
 
 function DetallePresupuesto (IdPresu) {
     var tableCabecera = $("#tblDetallePresupuesto");
@@ -172,19 +192,14 @@ function EditarPresupuesto(Id) {
                         "<th nowrap='nowrap'>Modelo</th>" +
                         "<td><input type='text' id='Modelo' value=" + value.modelo + " disabled/></td></tr>" +
 
-                  
-
-                        //"<tr><th nowrap='nowrap'>Centro de Costo</th>" +
-                        //"<td>" + centroCosto + "</td>" +
-                        //"<th nowrap='nowrap'>Lista de Precio</th>" +
-                        //"<td>" + listaPrecio + "</td>" +
+                 
 
                         "<tr><th nowrap='nowrap'>Observacion</th>" +
                         "<td><input type='text' id='observacion' value='" + value.observaciones + "'></td>" +
                         "<td></td>" +
                         "<td></td></tr>" +
                         "<td></td>" +
-                        "<td><button class='btn btn-warning btn-xs' data-toggle='modal' data-target='#DetalleDetalle' onclick='EditarDetallePresupuesto(" + value.folioEncabezado + ")'>Editar Detalle</button></td>" +
+                        "<td><button class='btn btn-warning btn-xs' data-toggle='modal' data-target='#DetalleDetalle' onclick='EditarDetallePresupuesto(" + Id + ")'>Editar Detalle</button></td>" +
                         "<td><button class='btn btn-danger btn-xs' onclick='grabaEditaCotizacion(" + value.Id + ")'>Guardar Cabecera</button></td>" +
                         "<td></td>";
                     tableCabecera.append(htmlCabecera);
@@ -194,3 +209,190 @@ function EditarPresupuesto(Id) {
     });
 }
 
+
+
+
+
+function EditarDetallePresupuesto(Id) {
+    var tableDetalle = $("#tblDetalle tbody");
+    var htmlDetalle = "";
+    tableDetalle.html("");
+    var total = 0;
+    var iva = 0;
+    var neto = 0;
+    $.ajax({
+        type: "POST",
+        url: "DetallePresupuesto",
+        data: { _IdPresu: Id },
+        async: true,
+        success: function (data) {
+            if (data.Mensaje == 1) {
+                alert("No se encontro detalle.");
+            }
+            else {
+                $("#tblDetalle tbody").html("");
+                $.each(data.Detalle, function (index, value) {
+                    htmlDetalle = "";
+
+                   
+                    htmlDetalle = htmlDetalle + "<tr>";
+                    htmlDetalle = htmlDetalle + "<td>" + value.folioDetalle + "</td>";
+                    htmlDetalle = htmlDetalle + "<td id='td_detalleProducto_codigoProducto_" + value.folioDetalle + "'>" + value.codigo + "</td>";
+                    htmlDetalle = htmlDetalle + "<td id='td_detalleProducto_descripcionProducto_" + value.folioDetalle + "'>" + value.nombre + "</td>";
+                   
+                    htmlDetalle = htmlDetalle + "<td style='text-align: right;'>" + value.cantidad + "</td>";
+                    htmlDetalle = htmlDetalle + "<td style='text-align: right;'>" + formatearNumero(value.Unidad, "$") + "</td>";
+                    htmlDetalle = htmlDetalle + "<td style='text-align: right;'>" + formatearNumero(Math.round(value.subTotal), "$") + "</td>";
+                    htmlDetalle = htmlDetalle + "<td></td>";
+                    htmlDetalle = htmlDetalle + "<td><button class='btn btn-warning btn-xs' data-toggle='modal' data-target='#EditarDetallePresupuesto' onclick='modificardetalle(" + value.folioDetalle + "," + Id + ")'>editar</button></td>";
+                    htmlDetalle = htmlDetalle + "<td><button class='btn btn-danger btn-xs' onclick='eliminarDetalle(" + value.folioDetalle + "," + Id + ")'>Eliminar</button></td>";
+                    htmlDetalle = htmlDetalle + "</tr>";
+
+                    neto  += value.subTotal;
+
+                    iva =Math.round(neto * 0.19);
+                    total = Math.round(neto+iva);
+                    
+                   
+                    
+
+                    tableDetalle.append(htmlDetalle);
+                });
+
+                var colspanTotales = 7;
+              
+
+                var htmldetalleTotal = "";
+                htmldetalleTotal = htmldetalleTotal + "<tr><th colspan='" + colspanTotales + "'>SubTotal</th>";
+                htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'>" + formatearNumero(Math.round(neto), "$") + "</td>";
+                htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'></td>";
+                htmldetalleTotal = htmldetalleTotal + "</tr>";
+                htmldetalleTotal = htmldetalleTotal + "<tr><th colspan='" + colspanTotales + "'>Total Iva</th>";
+                htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'>" + formatearNumero(iva, "$") + "</td>";
+                htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'></td>";
+                htmldetalleTotal = htmldetalleTotal + "</tr>";
+                htmldetalleTotal = htmldetalleTotal + "<tr><th colspan='" + colspanTotales + "'>Venta Total</th>";
+                htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'>" + formatearNumero(Math.round(total), "$") + "</td>";
+                htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'></td>";
+                htmldetalleTotal = htmldetalleTotal + "</tr>";
+                tableDetalle.append(htmldetalleTotal);
+
+                datosDetalle = data.Detalle;
+
+            }
+        }
+    });
+}
+
+
+
+
+
+function eliminarDetalle(Linea, idEncabezado) {
+    //IdCotizacion = $("#idCotizacion").val();
+    var total = 0;
+    var iva = 0;
+    var neto = 0;
+    if (datosDetalle.length > 1) {
+        $.ajax({
+            type: "POST",
+            url: "EliminarDetalle",
+            data:
+            {
+                Linea,
+                idEncabezado
+            },
+            async: true,
+            success: function (data) {
+                if (data.Verificador) {
+                    abrirInformacion("Modificacion", "Registro eliminado");
+                    $("#tblDetalle tbody").html("");
+                    var tableDetalle = $("#tblDetalle tbody");
+                    var htmlDetalle = "";
+                    datosDetalle = datosDetalle.filter(m => m.folioDetalle !== Linea);
+                    $.each(data.Detalle, function (index, value) {
+                        htmlDetalle = "";
+                        
+
+                        htmlDetalle = htmlDetalle + "<tr>";
+                        htmlDetalle = htmlDetalle + "<td>" + value.folioDetalle + "</td>";
+                        htmlDetalle = htmlDetalle + "<td id='td_detalleProducto_codigoProducto_" + value.folioDetalle + "'>" + value.codigo + "</td>";
+                        htmlDetalle = htmlDetalle + "<td id='td_detalleProducto_descripcionProducto_" + value.folioDetalle + "'>" + value.nombre + "</td>";
+
+                        htmlDetalle = htmlDetalle + "<td style='text-align: right;'>" + value.cantidad + "</td>";
+                        htmlDetalle = htmlDetalle + "<td style='text-align: right;'>" + formatearNumero(value.Unidad, "$") + "</td>";
+                        htmlDetalle = htmlDetalle + "<td style='text-align: right;'>" + formatearNumero(Math.round(value.subTotal), "$") + "</td>";
+                        htmlDetalle = htmlDetalle + "<td></td>";
+                        htmlDetalle = htmlDetalle + "<td><button class='btn btn-warning btn-xs' data-toggle='modal' data-target='#EditarDetallePresupuesto' onclick='modificarDetalle(" + value.folioDetalle + "," + idEncabezado + ")'>Editar</button></td>";
+                        htmlDetalle = htmlDetalle + "<td><button class='btn btn-danger btn-xs' onclick='eliminarDetalle(" + value.folioDetalle + "," + idEncabezado + ")'>Eliminar</button></td>";
+                        htmlDetalle = htmlDetalle + "</tr>";
+
+                        neto += value.subTotal;
+
+                        iva = Math.round(neto * 0.19);
+                        total = Math.round(neto + iva);
+
+                        tableDetalle.append(htmlDetalle);
+                    });
+
+                    var colspanTotales = 7;
+                    
+
+                    var htmldetalleTotal = "";
+                    htmldetalleTotal = htmldetalleTotal + "<tr><th colspan='" + colspanTotales + "'>SubTotal</th>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'>" + formatearNumero(Math.round(neto), "$") + "</td>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'></td>";
+                    htmldetalleTotal = htmldetalleTotal + "</tr>";
+                    htmldetalleTotal = htmldetalleTotal + "<tr><th colspan='" + colspanTotales + "'>Total Iva</th>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'>" + formatearNumero(iva, "$") + "</td>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'></td>";
+                    htmldetalleTotal = htmldetalleTotal + "</tr>";
+                    htmldetalleTotal = htmldetalleTotal + "<tr><th colspan='" + colspanTotales + "'>Venta Total</th>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'>" + formatearNumero(Math.round(total), "$") + "</td>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'></td>";
+                    htmldetalleTotal = htmldetalleTotal + "</tr>";
+                    tableDetalle.append(htmldetalleTotal);
+
+                    datosDetalle = data.Detalle;
+                }
+            }
+        });
+
+    } else {
+        abrirError("Usuario", "No se puede dejar sin productos");
+    }
+}
+
+
+
+
+function modificardetalle(Linea,idEncabezado) {
+    $.ajax({
+        type: "POST",
+        url: "BuscarDetalle",
+        data: {
+           
+            Linea,
+            idEncabezado
+        },
+        async: true,
+        success: function (data) {
+            if (data.Verificador ==false) {
+                alert("No se encontro detalle." + data.Detalle.folioDetalle);
+            }
+            else {
+                
+                $("#idDetalle").val(data.Detalle.folioDetalle);
+                $("#txtCodigo").val(data.Detalle.codigo);
+                $("#txtTipo").val(data.Detalle.Tipo);
+                $("#txtNombre").val(data.Detalle.nombre);
+                $("#txtCantidad").val(data.Detalle.cantidad);
+                $("#txtSubtotal").val(data.Detalle.Unidad);
+                $("#txtTotal").val(data.Detalle.subTotal);
+
+           
+
+            }
+        }
+    });
+}

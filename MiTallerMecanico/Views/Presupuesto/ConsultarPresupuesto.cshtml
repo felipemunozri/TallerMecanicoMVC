@@ -189,6 +189,85 @@
                                        
                                     </tr>
                                 </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="EditarDetallePresupuesto" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detalle Cotizacion</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblEditDetalle" class="table table-profile">
+                                <thead>
+                                    <tr class="highlight">
+                                        <th>Codigo</th>
+                                        <td>
+                                            <input type="text" name="txtCodigo" id="txtCodigo" disabled class="form-control" tabindex="-1" size="40" min="0" />
+                                            <input type="text" name="idDetalle" id="idDetalle" hidden />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <td>
+                                            <input type="text" name="txtTipo" id="txtTipo" disabled class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Nombre </th>
+                                        <td>
+                                            <input type="text" name="txtProducto" id="txtNombre" disabled class="form-control" tabindex="-1" size="90" min="0" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Subtotal</th>
+                                        <td>
+                                            <input type="number" name="txtSubtotal" id="txtSubtotal" class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <th>Cantidad</th>
+                                        <td>
+                                            <input type="number" name="txtCantidad" id="txtCantidad" class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <th>Total </th>
+                                        <td>
+                                            <input type="number" name="txtTotal" id="txtTotal" disabled class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+                                </thead>
                                 <tbody></tbody>
                             </table>
                         </div>
@@ -196,6 +275,10 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default btn-warning"
+                        onclick="Detalle_X_Modificar()" data-dismiss="modal">
+                    Grabar
+                </button>
                 <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>

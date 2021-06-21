@@ -145,6 +145,53 @@ namespace MiTallerMecanico.Controllers
             return Json(new { Cabecera = enca, Detalle = deta }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult EliminarDetalle(int Linea, int idEncabezado)
+        {
+            int neto=0;
+            int  netoAux = 0;
+            int  iva=0;
+            int total;
+            RespuestaModel respuesta = controlTaller().EliminarDetalle(Linea, idEncabezado);
+
+            List<EncabezadoDetalle> enca = controlTaller().obtenerEncabezadoDetalle(idEncabezado);
+            List<DetallePresuModel> deta = controlTaller().obtenerDetalle(idEncabezado);
+
+            for (int i = 0; i < deta.Count; i++)
+            {
+                netoAux = neto + netoAux;
+                neto =netoAux+deta[i].subTotal;
+            }
+
+            iva = (neto * 19)/100;
+            total = neto + iva;
+
+            RespuestaModel upd = controlTaller().ActualizarEncabezado(idEncabezado,neto,iva,total);
+
+
+            
+
+
+            return Json(new { Cabecera = enca, Detalle = deta, Verificador = true }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult BuscarDetalle(int Linea, int idEncabezado)
+        {
+           
+            DetallePresuModel deta = controlTaller().buscarDetalle(Linea, idEncabezado);
+
+            if (deta ==null) {
+
+                return Json(new { Detalle = deta, Verificador = false }, JsonRequestBehavior.AllowGet);
+            }
+            else {
+
+                return Json(new { Detalle = deta, Verificador = true }, JsonRequestBehavior.AllowGet);
+            }
+           
+        }
+
+
     }
 
 

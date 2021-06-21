@@ -87,5 +87,23 @@ namespace BLL
 
             return _Control.obtenerDetalle(_IdPresu);
         }
+
+        public RespuestaModel EliminarDetalle(int Linea, int idEncabezado) {
+            
+            return _Control.EliminarDetalle(Linea, idEncabezado);
+        }
+
+        public RespuestaModel ActualizarEncabezado(int idEncabezado,int  neto,int  iva,int  total)
+        {
+
+            return _Control.ActualizarEncabezado(idEncabezado, neto, iva, total);
+        }
+
+
+        public DetallePresuModel buscarDetalle(int Linea,int idEncabezado)
+        {
+            return _Control.buscarDetalle(Linea, idEncabezado);
+        }
+
     }
 }

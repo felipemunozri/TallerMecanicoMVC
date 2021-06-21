@@ -216,6 +216,72 @@ namespace BLL
         }
 
 
+        public RespuestaModel EliminarDetalle(int linea,int idEncabezado)
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_SP_DEL_DetallePresupuesto", new System.Collections.Hashtable()
+                {
+                    {"idEncabezado",idEncabezado},
+                    {"linea",linea}
+
+
+                }).Tables[0];
+                return UTIL.Mapper.BindData<RespuestaModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return null;
+            }
+        }
+
+        public DetallePresuModel buscarDetalle(int linea, int idEncabezado)
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_SP_GET_BuscarDetalle", new System.Collections.Hashtable()
+                {
+                    {"idEncabezado",idEncabezado},
+                    {"linea",linea}
+
+
+                }).Tables[0];
+                return UTIL.Mapper.BindData<DetallePresuModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return null;
+            }
+        }
+
+
+
+        public RespuestaModel ActualizarEncabezado(int idEncabezado, int neto, int iva, int total)
+        {
+            try
+            {
+                var data = new DBConector().EjecutarProcedimientoAlmacenado("MT_SP_UP_ActualizarPresupuesto", new System.Collections.Hashtable()
+                {
+                    {"idEncabezado",idEncabezado},
+                    {"neto",neto},
+                    {"iva",iva},
+                    {"total",total}   
+
+
+
+            }).Tables[0];
+                return UTIL.Mapper.BindData<RespuestaModel>(data);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return null;
+            }
+        }
+
+
         #endregion
 
 
