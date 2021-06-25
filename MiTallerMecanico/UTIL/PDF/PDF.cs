@@ -135,18 +135,18 @@ namespace MiTallerMecanico.UTIL.PDF
             Col2.Border = 0;
             Table1.AddCell(Col2);
             Table1.AddCell(CVacio);
-            Col3 = new PdfPCell(new Phrase("N° Presupuesto      " + enca.folioEncabezado, FontB8));
+            Col3 = new PdfPCell(new Phrase("N° Presupuesto    " + enca.folioEncabezado, FontB8));
             Col3.Border = 0;
             Table1.AddCell(Col3);
 
-            Col1 = new PdfPCell(new Phrase("E-MAIL", FontB8));
+            Col1 = new PdfPCell(new Phrase("", FontB8));
             Col1.Border = 0;
             Table1.AddCell(Col1);
             Col2 = new PdfPCell(new Phrase("navarreteHijo@Gmail.com", Font7));
             Col2.Border = 0;
             Table1.AddCell(Col2);
             Table1.AddCell(CVacio);
-            Col3 = new PdfPCell(new Phrase("N° Solicitud         " +  FontB8));
+            Col3 = new PdfPCell(new Phrase("" ,  FontB8));
             Col3.Border = 0;
             Table1.AddCell(Col3);
 
@@ -165,11 +165,11 @@ namespace MiTallerMecanico.UTIL.PDF
             Col1 = new PdfPCell(new Phrase(" ", FontB8));
             Col1.Border = 0;
             Table1.AddCell(Col1);
-            Col2 = new PdfPCell(new Phrase(enca.rutCliente, Font7));
+            Col2 = new PdfPCell(new Phrase("", Font7));
             Col2.Border = 0;
             Table1.AddCell(Col2);
             Table1.AddCell(CVacio);
-            Col3 = new PdfPCell(new Phrase("Plazo de pago      " , FontB8));
+            Col3 = new PdfPCell(new Phrase("" , FontB8));
             Col3.Border = 0;
             Table1.AddCell(Col3);
 
@@ -180,7 +180,7 @@ namespace MiTallerMecanico.UTIL.PDF
             Col2.Border = 0;
             Table1.AddCell(Col2);
             Table1.AddCell(CVacio);
-            Col3 = new PdfPCell(new Phrase("Forma de pago   " , FontB8));
+            Col3 = new PdfPCell(new Phrase("" , FontB8));
             Col3.Border = 0;
             Table1.AddCell(Col3);
 
@@ -203,29 +203,33 @@ namespace MiTallerMecanico.UTIL.PDF
             Table2.SetWidths(widths2);
 
 
-            Col1 = new PdfPCell(new Phrase("DATOS EMPRESA", FontB7));
+            Col1 = new PdfPCell(new Phrase("DATOS  VEHICULO:", FontB7));
             Col1.Border = 0;
             Table2.AddCell(Col1);
-            Col2 = new PdfPCell(new Phrase("Razon Social", FontB7));
+            Col2 = new PdfPCell(new Phrase("PATENTE", FontB7));
             Col2.Border = 0;
             Table2.AddCell(Col2);
-            Col3 = new PdfPCell(new Phrase("", Font7));
+            Col3 = new PdfPCell(new Phrase(enca.patente, Font7));
             Col3.Border = 0;
             Table2.AddCell(Col3);
-            Col4 = new PdfPCell(new Phrase(" ", Font8));
+            Col4 = new PdfPCell(new Phrase("", Font8));
             Col4.Border = 0;
             Table2.AddCell(Col4);
+          
 
-            Col1 = new PdfPCell(new Phrase(" ", FontB6));
+
+
+
+            Col1 = new PdfPCell(new Phrase("MARCA ", FontB6));
             Col1.Border = 0;
             Table2.AddCell(Col1);
-            Col2 = new PdfPCell(new Phrase("RUT", FontB7));
+            Col2 = new PdfPCell(new Phrase(enca.marca, Font7));
             Col2.Border = 0;
             Table2.AddCell(Col2);
             Col3 = new PdfPCell(new Phrase("", Font7));
             Col3.Border = 0;
             Table2.AddCell(Col3);
-            Col4 = new PdfPCell(new Phrase("*Favor enviar su Orden de Compra al correo electrónico:", Font6));
+            Col4 = new PdfPCell(new Phrase("*Favor enviar su aprobación  al correo electrónico:", Font6));
             Col4.HorizontalAlignment = Element.ALIGN_CENTER;
             Col4.Border = 0;
             Table2.AddCell(Col4);
@@ -233,13 +237,13 @@ namespace MiTallerMecanico.UTIL.PDF
             Col1 = new PdfPCell(new Phrase(" ", FontB6));
             Col1.Border = 0;
             Table2.AddCell(Col1);
-            Col2 = new PdfPCell(new Phrase("Direccion", FontB7));
+            Col2 = new PdfPCell(new Phrase("", FontB7)); //direccion
             Col2.Border = 0;
             Table2.AddCell(Col2);
             Col3 = new PdfPCell(new Phrase("", Font7));
             Col3.Border = 0;
             Table2.AddCell(Col3);
-            Col4 = new PdfPCell(new Phrase("odc@emeltec.cl, indicando número de cotización o", Font6));
+            Col4 = new PdfPCell(new Phrase("", Font6));
             Col4.HorizontalAlignment = Element.ALIGN_CENTER;
             Col4.Border = 0;
             Table2.AddCell(Col4);
@@ -247,7 +251,7 @@ namespace MiTallerMecanico.UTIL.PDF
             Col1 = new PdfPCell(new Phrase(" ", Font8));
             Col1.Border = 0;
             Table2.AddCell(Col1);
-            Col2 = new PdfPCell(new Phrase("Telefono", FontB7));
+            Col2 = new PdfPCell(new Phrase("", FontB7));
             Col2.Border = 0;
             Table2.AddCell(Col2);
             Col3 = new PdfPCell(new Phrase("", Font7));
@@ -285,7 +289,7 @@ namespace MiTallerMecanico.UTIL.PDF
             Col2.Border = 0;
             Table3.AddCell(Col2);
 
-            Col3 = new PdfPCell(new Phrase("Descripcion", FontB8));
+            Col3 = new PdfPCell(new Phrase("Nombre", FontB8));
             Col3.Border = 0;
             Table3.AddCell(Col3);
 
@@ -293,25 +297,25 @@ namespace MiTallerMecanico.UTIL.PDF
             Col4.Border = 0;
             Table3.AddCell(Col4);
 
-            Col5 = new PdfPCell(new Phrase("MONEDA", FontB8));
+            Col5 = new PdfPCell(new Phrase("", FontB8));
             Col5.Border = 0;
             Table3.AddCell(Col5);
 
-            Col6 = new PdfPCell(new Phrase("Venta Emeltec", FontB8));
+            Col6 = new PdfPCell(new Phrase("Unidad ", FontB8));
             Col6.Border = 0;
             Table3.AddCell(Col6);
 
-            Col7 = new PdfPCell(new Phrase("Total venta", FontB8));
+            Col7 = new PdfPCell(new Phrase("", FontB8));
             Col7.Border = 0;
             Col7.HorizontalAlignment = 2;
             Table3.AddCell(Col7);
 
-            Col8 = new PdfPCell(new Phrase("   ", FontB8));
+            Col8 = new PdfPCell(new Phrase(" ", FontB8));
             Col8.Border = 0;
             Col8.HorizontalAlignment = 2;
             Table3.AddCell(Col8);
 
-            Col9 = new PdfPCell(new Phrase("Plazo Entrega", FontB8));
+            Col9 = new PdfPCell(new Phrase("Sub Total", FontB8)); //plazo entrega
             Col9.Border = 0;
             Col9.HorizontalAlignment = 2;
             Table3.AddCell(Col9);
@@ -343,21 +347,21 @@ namespace MiTallerMecanico.UTIL.PDF
                 Table4.SetWidths(widths4);
 
                 string codigo = "";
-                string producto = "";
+                string Nombre = "";
                 string cantidad = "";
-                string precio = "";
-                string total = "";
-                string moneda = "";
-                string fechacierre = "";
-                //if (reporteCotizacion.Detalle.Count >= item)
-                //{
-                //    codigo = reporteCotizacion.Detalle[item - 1].CodProd;
-                //    producto = reporteCotizacion.Detalle[item - 1].DetProd;
-                //    cantidad = reporteCotizacion.Detalle[item - 1].nvCant.ToString();
-                //    precio = "$ " + reporteCotizacion.Detalle[item - 1].nvPrecio.ToString("N0");
-                //    total = "$ " + reporteCotizacion.Detalle[item - 1].nvTotLinea.ToString("N0");
-                //    fechacierre = reporteCotizacion.Detalle[item - 1].nvFecComprYYYYMMDD2;
-                //}
+                string Unidad = "";
+                string Subtotal = "";
+                //string moneda = "";
+                //string fechacierre = "";
+                if (deta.Count >= item)
+                {
+                    codigo = deta[item - 1].codigo.ToString();
+                    Nombre = deta[item - 1].nombre;
+                    cantidad = deta[item - 1].cantidad.ToString();
+                    Unidad = "$ " + deta[item - 1].Unidad.ToString("N0");
+                    Subtotal = "$ " + deta[item - 1].subTotal.ToString("N0");
+                    //fechacierre = reporteCotizacion.Detalle[item - 1].nvFecComprYYYYMMDD2;
+                }
                 //else
                 //{
                 //    moneda = " ";
@@ -371,7 +375,7 @@ namespace MiTallerMecanico.UTIL.PDF
                 Col2.Border = 0;
                 Table4.AddCell(Col2);
 
-                Col3 = new PdfPCell(new Phrase(producto, Font8));
+                Col3 = new PdfPCell(new Phrase(Nombre, Font8));
                 Col3.Border = 0;
                 Table4.AddCell(Col3);
 
@@ -379,16 +383,16 @@ namespace MiTallerMecanico.UTIL.PDF
                 Col4.Border = 0;
                 Table4.AddCell(Col4);
 
-                Col5 = new PdfPCell(new Phrase(moneda, Font8));
+                Col5 = new PdfPCell(new Phrase("", Font8));
                 Col5.Border = 0;
                 Table4.AddCell(Col5);
 
-                Col6 = new PdfPCell(new Phrase(precio, FontB8));
+                Col6 = new PdfPCell(new Phrase(Unidad, FontB8));
                 Col6.Border = 0;
-                Col6.HorizontalAlignment = PdfPCell.ALIGN_RIGHT;
+                Col6.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
                 Table4.AddCell(Col6);
 
-                Col7 = new PdfPCell(new Phrase(total, FontB8));
+                Col7 = new PdfPCell(new Phrase("", FontB8));
                 Col7.Border = 0;
                 Col7.HorizontalAlignment = PdfPCell.ALIGN_RIGHT; ;
                 Table4.AddCell(Col7);
@@ -398,7 +402,7 @@ namespace MiTallerMecanico.UTIL.PDF
                 Col8.HorizontalAlignment = 2;
                 Table4.AddCell(Col8);
 
-                Col9 = new PdfPCell(new Phrase(fechacierre, FontB8));
+                Col9 = new PdfPCell(new Phrase(Subtotal, FontB8));
                 Col9.Border = 0;
                 Col9.HorizontalAlignment = 2;
                 Table4.AddCell(Col9);
@@ -461,7 +465,7 @@ namespace MiTallerMecanico.UTIL.PDF
                 }
             }
 
-            string nvNetoAfecto = enca.neto.ToString("N0");
+            string nvNetoAfecto = enca.total.ToString("N0");
             #region Totales
             PdfPTable Table5 = new PdfPTable(3);
             float[] widths5 = new float[] {
@@ -474,7 +478,7 @@ namespace MiTallerMecanico.UTIL.PDF
 
             Table5.AddCell(CVacio);
 
-            Col2 = new PdfPCell(new Phrase("TOTAL NETO (NO INCLUYE IVA): " , Font8));
+            Col2 = new PdfPCell(new Phrase("TOTAL  (INCLUYE IVA): " , Font8));
             Col2.Border = 0;
             Table5.AddCell(Col2);
 
@@ -511,7 +515,7 @@ namespace MiTallerMecanico.UTIL.PDF
             Col1 = new PdfPCell(new Phrase("", Font8));
             Col1.Border = 0;
             Table6.AddCell(Col1);
-            Col2 = new PdfPCell(new Phrase("_________________________", Font8));
+            Col2 = new PdfPCell(new Phrase(" ", Font8));
             Col2.Border = 0;
             Table6.AddCell(Col2);
 
@@ -560,10 +564,10 @@ namespace MiTallerMecanico.UTIL.PDF
             Table7.WidthPercentage = 95;
             Table7.SetWidths(widths7);
             string pie = "";
-            pie += "El plazo de entrega es informado por nuestro proveedor y es un plazo estimado. Ni EMELTEC ni el proveedor tienen el control ni responsabilidad por las demoras en los";
-            pie += " despachos, procesos de desaduanamiento y logística en general.En consecuencia, EMELTEC no será responsable de atrasos.Se deja constancia que, el plazo de entrega,";
-            pie += "no ha sido determinante ni esencial para la compra de los productos. Es compromiso y obligación de EMELTEC efectuar la entrega o despacho de los productos al cliente";
-            pie += " tan pronto como sea posible, una vez que se encuentren en su bodega.";
+            pie += "";
+            pie += "";
+            pie += "";
+            pie += "";
 
             Col1 = new PdfPCell(new Phrase(pie, Font7));
             Table7.AddCell(Col1);

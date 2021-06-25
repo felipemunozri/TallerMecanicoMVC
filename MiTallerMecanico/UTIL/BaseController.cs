@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UTIL;
 using UTIL.Models;
 
 
@@ -55,6 +56,22 @@ namespace MiTallerMecanico.UTIL
                 string error = ex.ToString();
                 return Json(new { Verificador = false, Mensaje = "Se produjo un error al generar el reporte, favor reintentelo, si el problema persiste, comuniquese con su administrador" });
             }
+        }
+
+
+
+        public ActionResult DescargaPresupuesto(int idPresupuesto)
+        {
+            string path = idPresupuesto == 0 ? SessionVariables.SESSION_RUTA_PDF_COTIZACION : Server.MapPath("~/Presupuestos/pdf_informe_" + idPresupuesto.ToString() + ".pdf");
+            LogUser.agregarLog(path);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(path);
+            string fileName = new System.IO.FileInfo(path).Name;
+            string fileExtension = new System.IO.FileInfo(path).Extension;
+            LogUser.agregarLog(fileName);
+            LogUser.agregarLog(fileExtension);
+            //nombreArchivo = nombreArchivo == "" ? fileName : nombreArchivo;
+
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName /*+ fileExtension*/);
         }
     }
 

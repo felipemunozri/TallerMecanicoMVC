@@ -58,7 +58,7 @@
         <div id="header" class="header navbar navbar-transparent navbar-fixed-top navbar-expand-lg">
             <!-- begin navbar-header -->
             <div class="container">
-                <a href="ConsultarMiVehiculo.aspx" class="navbar-brand">
+                <a href="@Url.Action("ConsultaCliente", "ConsultaCliente")" class="navbar-brand">
 
                     <span class="brand-text">
 
@@ -160,8 +160,8 @@
 
                 <!-- DIV PARA MOSTRAR DESPUES DE LA CONSULTA -->
                 <div ID="txtPostConsulta" hidden>
-                    <h1 class="mb-4" id="Estado">
-                      
+                    <h1 class="mb-4" >
+                        Su Vehiculo está <span id="Estado"></span>
                     </h1>
                     <p class="mb-4">
                         Si desea, puede ponerse en contacto directamente<br />
@@ -200,7 +200,7 @@
                         </p>
                         <p>
                             <strong>Taller Mecánico Navarrete e Hijo</strong><br>
-                               PAdre Hurtado 761 <br>
+                               Camino Padre Hurtado 761 <br>
                             Buin, RM<br>
                         </p>
                         <p>

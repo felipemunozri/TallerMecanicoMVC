@@ -638,11 +638,9 @@ function DescargarPdf(idCotizacion) {
         },
         async: true,
         success: function (data) {
-            window.location = 'ConsultarPresupuesto?idPresupuesto=' + idCotizacion;
+            window.location = 'DescargaPresupuesto?idPresupuesto=' + idCotizacion;
         }
     });
-
-
 
 
 }

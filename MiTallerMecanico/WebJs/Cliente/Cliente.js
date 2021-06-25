@@ -16,7 +16,9 @@ function EstadoVehiculo() {
             if (data.Validador==true) {
                 
                 //var texto = JSON.stringify(data.estado);
-                $("#Estado").text("Su Vehiculo esta : "+ data.estado);
+                //$("#Estado").text("Su Vehiculo está " + data.estado);
+                $("#Estado").text(data.estado);
+                $("#Estado").addClass('text-primary');
                 $("#txtPreConsulta").attr("hidden", true);
                 $('#txtPostConsulta').removeAttr('hidden');
 

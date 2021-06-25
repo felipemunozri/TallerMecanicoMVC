@@ -1,5 +1,7 @@
 ﻿
-
+@{ 
+    string nombre = MiTallerMecanico.UTIL.SessionVariables.SESSION_DATOS_USUARIO.nombreUsuario;
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +38,10 @@
             <div class="navbar-header">
 
 
-                <a href="@Url.Action("Index", "Home")" class="navbar-brand"><span class="navbar-logo"></span><b>MiTaller</b>-<b>Mecánico</b></a>
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                    <span class="navbar-logo"></span><b>MiTaller</b>-<b>Mecánico</b>
+                    <small class="font-weight-light ml-1">Taller Navarrete e Hijos</small>
+                </a>
 
                 <button type="button" class="navbar-toggle" data-click="top-menu-toggled">
                     <span class="icon-bar"></span>
@@ -49,7 +54,7 @@
             <ul class="navbar-nav navbar-right">
                 <li class="dropdown navbar-user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                        <img src="~/Content/assets/img/user/user-13.jpg" alt="">
+                        <img src="~/Content/assets/img/user/user-13.jpg" alt="">@nombre
                         <!-- DESCOMENTAR PARA MOSTRAR NOMBRE USUARIO EN HEADER! -->
                         @*<span class="d-none d-md-inline">@MiTallerMecanico.UTIL.SessionVariables.SESSION_DATOS_USUARIO.nombreUsuario</span> <b class="caret"></b>*@
                     </a>
