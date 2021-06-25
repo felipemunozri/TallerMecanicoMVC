@@ -160,10 +160,14 @@ function CambiarEstado() {
     var Estado = $("#SeleccionarEstado").val();
 
     if (Estado == 0) {
-        Estado = "Ingresado";
+        Estado = "INGRESADO";
     } else {
-        if (Estado == 1) { Estado = "Reparacion" }
-        else { Estado = "Entregado" }
+        if (Estado == 1) { Estado = "REPARACION" }
+        else if (Estado==2) {Estado='LISTO'
+
+        }
+    
+        else { Estado = "ENTREGADO" }
     }
 
         $.ajax({

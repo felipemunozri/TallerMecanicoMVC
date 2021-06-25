@@ -36,7 +36,7 @@ namespace MiTallerMecanico.Controllers
             }
             else {
                 
-                return Json(new { estado = est, Validador = true }, JsonRequestBehavior.AllowGet);
+                return Json(new { estado = est.estado, Validador = true }, JsonRequestBehavior.AllowGet);
             }
 
 

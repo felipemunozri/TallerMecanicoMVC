@@ -19,6 +19,7 @@ $(document).ready(function () {
             BuscarCliente();
         } else {
             abrirError("Usuario", "Este rut es incorrecto");
+            limpiar();
         }
 
         
@@ -100,45 +101,71 @@ function ValorSugerido() {
 
 
 function agregarCabecera() {
+
+
+
     var rut = $("#txtRutCliente").val();
     rut = rut.replace('.', '');
     rut = rut.replace('.', '');
-    var cabecera = {
-        fk_rutCliente:rut,
-        fk_patente: $("#txtPatVehiculo").val(),
-        fecha: $("#txtFecha").val(),
-        observaciones: $("#txtObservaciones").val(),
-        estado: "0",
-        neto: parseInt($("#txtNeto").val()),
-        iva: parseInt($("#txtIVA").val()),
-        total:parseInt( $("#txtTotal").val())
-    };
 
-    $.ajax({
-        type: "post",
-        url: "AgregarPresupuesto",
-        data: {
-            presupuesto: cabecera,
-            detalle : Lista
-        },
-        async: false,
-        success: function (data) {
-            if (data.Validador==true) {
+    var nombre = $("#txtNomCliente").val();
+    var apellido = $("#txtApeCliente").val();
+    var telefono = $("#txtTelCliente").val();
+    var email = $("#txtMailCliente").val();
+    var direccion = $("#txtDirCliente").val();
+    // vehiculo
+    var tipoVehiculo = $("#selTipoVehiculo").val();
+    var patente = $("#txtPatVehiculo").val();
+    var marca = $("#txtMarVehiculo").val();
+    var modelo = $("#txtModVehiculo").val();
+    var color = $("#txtColorVehiculo").val();
+    var ano = $("txtAnoVehiculo").val();
+    var kilometraje = $("#txtKilVehiculo").val();
 
-                abrirInformacion("Usuario", "Presupuesto generado");
+    if (nombre == "" || apellido == "" || telefono == "" || email == ""
+        || direccion == "" || tipoVehiculo < 0 || patente == "" || marca == "" ||modelo==""||color==""||ano==""||kilometraje==""||Lista.length===0) {
+
+        abrirError("usuario", "Debe Completar todos los datos");
+      
+    } else {
+        var cabecera = {
+            fk_rutCliente: rut,
+            fk_patente: $("#txtPatVehiculo").val(),
+            fecha: $("#txtFecha").val(),
+            observaciones: $("#txtObservaciones").val(),
+            estado: "1",
+            neto: parseInt($("#txtNeto").val()),
+            iva: parseInt($("#txtIVA").val()),
+            total: parseInt($("#txtTotal").val())
+        };
+
+        $.ajax({
+            type: "post",
+            url: "AgregarPresupuesto",
+            data: {
+                presupuesto: cabecera,
+                detalle: Lista
+            },
+            async: false,
+            success: function (data) {
+                limpiar();
+                if (data.Validador == true) {
+
+                    abrirInformacion("Usuario", "Presupuesto generado");
 
 
-            } else {
-                abrirError("usuario","presupuesto no generado");
+                } else {
+                    abrirError("usuario", "presupuesto no generado");
 
+                }
+
+            },
+            error: function (a, b, c) {
+                console.log(a, b, c);
             }
+        });
 
-        },
-        error: function (a, b, c) {
-            console.log(a, b, c);
-        }
-    });
-
+    }
 }
 
 
@@ -167,7 +194,7 @@ function BuscarCliente(){
 
                     
                 } else {
-                    abrirInformacion("Usuario", "vehiculo ya registrado");
+                    abrirInformacion("Usuario", "Usuario  ya registrado");
                     $("#txtNomCliente").val(data.cliente.nombreCliente);
                     $("#txtApeCliente").val(data.cliente.apellidoCliente);
                     $("#txtDirCliente").val(data.cliente.direccionCliente);
@@ -365,5 +392,25 @@ function calculaTabla() {
     $("#txtIVA").val(iva);
     $("#txtTotal").val(Total);
     
+
+}
+
+function limpiar() {
+
+
+   $("#txtRutCliente").val("");
+   $("#txtNomCliente").val("");
+   $("#txtApeCliente").val("");
+   $("#txtTelCliente").val("");
+   $("#txtMailCliente").val("");
+   $("#txtDirCliente").val("");
+
+   $("#selTipoVehiculo").val("-1");
+   $("#txtPatVehiculo").val("");
+   $("#txtMarVehiculo").val("");
+   $("#txtModVehiculo").val("");
+   $("#txtColorVehiculo").val("");
+   $("txtAnoVehiculo").val("");
+   $("#txtKilVehiculo").val("");
 
 }
