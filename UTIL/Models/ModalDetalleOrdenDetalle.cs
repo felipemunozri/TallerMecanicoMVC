@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UTIL.Models
+{
+    public class ModalDetalleOrdenDetalle
+    {
+        public int folioDetalleOrden { set; get; }
+
+        public int codigo { set; get; }
+        public string nombre { set; get; }
+        public int fk_folioOrden { set; get; }
+
+        public int cantidad { set; get; }
+
+        public int Unidad { set; get; }
+        public int subTotal { set; get; }
+
+
+    }
+}

@@ -71,10 +71,11 @@ namespace MiTallerMecanico.Controllers
                    if (resultado != null)
                     {
                         validador = 1;
+                        int tipoUsuario = resultado.fk_idTipoUsuario;
                         SessionVariables.SESSION_DATOS_USUARIO = resultado;
-                        return Json(new { Validador = validador });
+                        return Json(new { tipo=tipoUsuario,Validador = validador });
                     }
-
+                 
 
 
                     return Json(new  RespuestaModel (){ Verificador = false,Mensaje="Error de Usuario y/o contraseña" });

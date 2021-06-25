@@ -31,6 +31,10 @@ namespace MiTallerMecanico.Controllers
         }
         public ActionResult ConsultarOrden()
         {
+
+            List<ListarOrdenesTrabajo> ordenes = controlTaller().listarOrdenes();
+           
+            ViewBag.orden = ordenes;
             return View();
         }
         public ActionResult ModificarOrden()
@@ -53,7 +57,33 @@ namespace MiTallerMecanico.Controllers
         }
         public ActionResult AnularOrden()
         {
+            List<ListarOrdenesTrabajo> ordenes = controlTaller().listarOrdenesAnuladas();
+            ViewBag.ordenesAnuladas = ordenes;
             return View();
         }
+
+        [HttpPost]
+        public JsonResult AnularOrden(int id) {
+
+            RespuestaModel anular = controlTaller().AnularOrden(id);
+
+
+            return Json(new {  Verificador = true }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public JsonResult DetalleOrdenes(int idOrden)
+        {
+
+            List<ModalDetalleOrden> enca = controlTaller().ObtenerDetalleOrdenes(idOrden);
+
+            List<ModalDetalleOrdenDetalle> deta = controlTaller().obtenerDetalleOrdenDetalle(idOrden);
+
+            return Json(new { Cabecera = enca, Detalle = deta }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
     }
 }

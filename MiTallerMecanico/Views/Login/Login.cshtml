@@ -23,7 +23,8 @@
 <body class="pace-top  pace-done">
     <input type="hidden" id="urlIndex" value="@Url.Action("Index", "Home" )" />
     <input type="hidden" id="urlLogin" value="@Url.Action("Login", "Login" )" />
-    
+    <input type="hidden" id="urlMec" value="@Url.Action("Mecanico", "Mecanico" )" />
+
     <div class="pace  pace-inactive">
         <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
             <div class="pace-progress-inner"></div>
@@ -68,8 +69,8 @@
                         <input type="password" onkeypress="ContrasenaKeyPress(event)" class="form-control form-control-lg" id="Contrasena" name="Contrasena" placeholder="Contraseña" required>
                     </div>
                     @*<div class="login-buttons">
-            <button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>
-        </div>*@
+                            <button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>
+                        </div>*@
                     <div class="login-buttons">
                         <input type="button" id="Login" class="btn btn-success btn-block btn-lg" value="Iniciar Sesion" />
                     </div>
@@ -87,7 +88,7 @@
     </div>
     <!-- end page container -->
 
-    
+
     <a id="aModalErrorLogin" style="display: none" href="#modalErrorLogin" class="btn btn-sm btn-success" data-toggle="modal">Agregar Direccion Despacho</a>
     <div class="modal fade" id="modalErrorLogin">
         <div class="modal-dialog">
@@ -105,7 +106,7 @@
             </div>
         </div>
     </div>
-   
+
     <!-- ================== BEGIN BASE JS ================== -->
     <script async="" src="https://www.google-analytics.com/analytics.js"></script>
     <script src="~/Content/assets/js/app.min.js"></script>

@@ -21,6 +21,7 @@ namespace MiTallerMecanico.Controllers
 
             return View();
         }
+
         public ActionResult ConsultarUsuario()
         {
             List<UsuarioModel> usuarios = controlTaller().ObtenerUsuarios();

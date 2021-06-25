@@ -8,17 +8,17 @@ namespace UTIL.Models
 {
     public class OrdenModel
     {
-        int folioOrden { get; set; }
-        int fk_idUsuario { get; set; }
-        string fk_rutCliente { get; set; }
-        string fk_patente { get; set; }
-        DateTime fecha { get; set; }
-        DateTime fechaEntrega { get; set; }
-        string prioridad { get; set; }
-        string observaciones { get; set; }
-        bool anulacion { get; set; }
-        int neto { get; set; }
-        int iva { get; set; }
-        int total { get; set; }
+        public int folioOrden { get; set; }
+        public int fk_idUsuario { get; set; }
+        public string fk_rutCliente { get; set; }
+        public string fk_patente { get; set; }
+        public DateTime fecha { get; set; }
+        public DateTime fechaEntrega { get; set; }
+         public string prioridad { get; set; }
+         public string observaciones { get; set; }
+         public bool anulacion { get; set; }
+        public int neto { get; set; }
+        public int iva { get; set; }
+        public int total { get; set; }
     }
 }

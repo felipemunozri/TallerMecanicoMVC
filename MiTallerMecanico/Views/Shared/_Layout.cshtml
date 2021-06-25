@@ -18,7 +18,7 @@
     <script src="~/Content/assets/js/app.min.js"></script>
     <script src="~/Content/assets/js/theme/default.min.js"></script>
     <script src="~/WebJs/Base.js"></script>
-    <script src="~/WebJs/EditableClass.js"></script>
+    @*<script src="~/WebJs/EditableClass.js"></script>*@
     <link href="~/Content/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
     <!-- ================== END BASE JS ================== -->
 </head>
@@ -64,6 +64,8 @@
         </div>
         <!-- end #header -->
         <!-- begin #top-menu -->
+
+
         <div id="top-menu" class="top-menu">
             <ul class="nav">
 
@@ -75,11 +77,12 @@
                     </a>
                     <ul class="sub-menu overflow-hidden">
                         <li><a href="@Url.Action("CrearPresupuesto", "Presupuesto")">Crear Presupuesto</a></li>
-                        <li><a href="@Url.Action("ModificarPresupuesto", "Presupuesto")">Modificar Presupuesto</a></li>
+                        @*<li><a href="@Url.Action("ModificarPresupuesto", "Presupuesto")">Modificar Presupuesto</a></li>*@
                         <li><a href="@Url.Action("ConsultarPresupuesto", "Presupuesto")">Consultar Presupuetos</a></li>
+                        <li><a href="@Url.Action("PresupuestosAprobados", "Presupuesto")">Presupuetos Aprobados</a></li>
                     </ul>
                 </li>
-
+              
                 <li class="has-sub">
                     <a href="javascript:;">
                         <i class="fa fa-list-ol"></i>
@@ -87,10 +90,10 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="sub-menu overflow-hidden">
-                        <li><a href="@Url.Action("CrearOrden", "OrdenTrabajo")">Crear Orden de Trabajo</a></li>
-                        <li><a href="@Url.Action("ModificarOrden", "OrdenTrabajo")">Modificar Orden de Trabajo</a></li>
+                        @*<li><a href="@Url.Action("CrearOrden", "OrdenTrabajo")">Crear Orden de Trabajo</a></li>*@
+                        @*<li><a href="@Url.Action("ModificarOrden", "OrdenTrabajo")">Modificar Orden de Trabajo</a></li>*@
                         <li><a href="@Url.Action("ConsultarOrden", "OrdenTrabajo")">Consultar Órdenes de Trabajo</a></li>
-                        <li><a href="@Url.Action("AnularOrden", "OrdenTrabajo")">Anular Orden de Trabajo</a></li>
+                        <li><a href="@Url.Action("AnularOrden", "OrdenTrabajo")">Ordenes Anuladas</a></li>
                     </ul>
                 </li>
 

@@ -1,45 +1,370 @@
-﻿
+﻿@using UTIL.Models;
 @{
     ViewBag.Title = "AnularOrden";
+    List<ListarOrdenesTrabajo> ordenes = ViewBag.ordenesAnuladas;
+    string parametroUpdate = MiTallerMecanico.UTIL.ActualizacionJS.obtenerParametro();
 }
 
-<h2>Anular Orden de Trabajo</h2>
+<script src="~/WebJs/OrdenTrabajo/ConsultarOrden.js?@parametroUpdate"></script>
+@*<script src="~/WebJs/OrdenTrabajo/ConsultarOrden.js?@parametroUpdate"></script>*@
 
-<!-- Panel Cliente & Vehiculo -->
-<div class="row">
+<input type="hidden" id="url" value="@Url.Action("ConsultarOrden", "ordenTrabajo" )" />
+<div class="panel panel-inverse width-full">
+    <div class="panel-heading">
+        <h4 class="panel-title">Listado Ordenes de Trabajo Anuladas </h4>
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="dataTable" class="table" cellspacing="0">
+            <thead>
+                <tr>
 
-    <div class="col-lg-12 ui-sortable">
+                    <th>id</th>
 
-        <div class="panel panel-inverse" data-sortable-id="form-plugins-3">
+                    <th>Cliente</th>
 
-            <div class="panel-heading">
-                <h4 class="panel-title">Anular Orden de Trabajo</h4>
-                <div class="panel-heading-btn">
-                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>-->
-                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>-->
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                    <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>-->
+                    <th>Rut</th>
+
+                    <th>Patente</th>
+
+                    <th>Marca</th>
+
+                    <th>Modelo</th>
+
+                    <th>Fecha</th>
+
+                    <th>Plazo</th>
+
+                    <th>Responsable</th>
+
+                    <th>Prioridad</th>
+
+                    <th>Neto</th>
+
+                    <th>Iva</th>
+
+                    <th>Total</th>
+
+                    <th>Estado</th>
+
+                    <th></th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    try
+                    {
+                        for (int i = 0; i < ordenes.Count; i++)
+                        {
+                            <tr>
+
+                                <td>@ordenes[i].folioOrden</td>
+
+                                <td>@ordenes[i].Nombre</td>
+
+                                <td>@ordenes[i].rutCliente</td>
+
+                                <td>@ordenes[i].patente</td>
+
+                                <td>@ordenes[i].marca </td>
+
+                                <td>@ordenes[i].modelo </td>
+
+                                <td>@ordenes[i].fecha </td>
+
+                                <td>@ordenes[i].Plazo </td>
+
+                                <td>@ordenes[i].Responsable </td>
+
+                                <td>@ordenes[i].prioridad </td>
+
+                                <td>$@ordenes[i].neto.ToString("N0")</td>
+
+                                <td>$@ordenes[i].iva.ToString("N0")</td>
+
+                                <td>$@ordenes[i].total.ToString("N0")</td>
+
+                                <td>@ordenes[i].estado</td>
+
+                                <td>
+                                    <input class="btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#Detalleordenespuesto" onclick="Detalleordenes(@ordenes[i].folioOrden);" value="Detalle">
+
+                                </td>
+
+
+
+                            </tr>
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>No existen Clientes</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="Detalleordenespuesto" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detalle Orden</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetalleordenes" class="table table-profile"></table>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetalleordenesDetalle" class="table table-profile"></table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="panel-body">
-                <div class="table-responsive form-inline">
-                    <table class="table table-profile">
-                        <tbody>
-                            <tr class="highlight">
-                                <td>ID Orden de Trabajo</td>
-                                <td>
-                                    <input type="number" name="txtIdOrden" class="form-control" min="1">
-                                </td>
-                                <td>
-                                    <input class="btn btn-danger" type="button" name="btnAnular" value="Anular Orden">
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DetalleEncabezado" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Cabecera ordenespuesto</h4>
+                @*<button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>*@
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblCabecera" class="table table-profile"></table>
+                        </div>
+                    </div>
+
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" onclick="Actualiza();" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="DetalleDetalle" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detalle ordenespuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetalle" class="table table-profile">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Codigo</th>
+                                        <th>Detalle </th>
+                                        <th>Cantidad</th>
+                                        <th>Unidad</th>
+                                        <th>Sub Total</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="EditarDetalleordenespuesto" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detalle Cotizacion</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblEditDetalle" class="table table-profile">
+                                <thead>
+                                    <tr class="highlight">
+                                        <th>Codigo</th>
+                                        <td>
+                                            <input type="text" name="txtCodigo" id="txtCodigo" disabled class="form-control" tabindex="-1" size="40" min="0" />
+                                            <input type="text" name="idDetalle" id="idDetalle" hidden />
+                                            <input type="text" name="idEncabezado" id="idEncabezado" hidden />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <td>
+                                            <input type="text" name="txtTipo" id="txtTipo" disabled class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Nombre </th>
+                                        <td>
+                                            <input type="text" name="txtProducto" id="txtNombre" disabled class="form-control" tabindex="-1" size="90" min="0" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Subtotal</th>
+                                        <td>
+                                            <input type="number" name="txtSubtotal" id="txtSubtotal" class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <th>Cantidad</th>
+                                        <td>
+                                            <input type="number" name="txtCantidad" id="txtCantidad" class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <th>Total </th>
+                                        <td>
+                                            <input type="number" name="txtTotal" id="txtTotal" disabled class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default btn-warning"
+                        onclick="Detalle_X_Modificar()" data-dismiss="modal">
+                    Grabar
+                </button>
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="Aprobarordenespuesto" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Aprobar ordenespuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table class="table table-profile">
+                                <tbody>
+                                    <tr>
+                                        <td>ID.ordenespuesto</td>
+
+                                        <td>
+                                            <input type="text" name="txtordenespuestoId" id="txtordenespuestoId" disabled class="form-control font-weight-bold" tabindex="-1" size="2" min="0" />
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr class="highlight">
+                                        <td>Seleccione Mecanico:</td>
+                                        <td>
+                                            <select id="mecanicos" class="form-control w-75"></select>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="highlight">
+                                        <td>Seleccione Prioridad :</td>
+                                        <td>
+                                            <select class="form-control w-75" id="SeleccionarPriorirdad">
+                                                <option value="0">Baja</option>
+                                                <option value="1">Media </option>
+                                                <option value="2">Alta </option>
+                                            </select>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr class="highlight">
+                                        <td>Seleccione Fecha :</td>
+                                        <td>
+                                            <input type="date" class="form-control" name="txtFechaEntrega" min="0" value="" id="txtFechaEntrega">
+                                        </td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-success"
+                        onclick="GenerarOrden();" data-dismiss="modal">
+                    Grabar
+                </button>
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

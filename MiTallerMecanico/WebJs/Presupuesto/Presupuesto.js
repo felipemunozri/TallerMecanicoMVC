@@ -108,14 +108,11 @@ function agregarCabecera() {
         fk_patente: $("#txtPatVehiculo").val(),
         fecha: $("#txtFecha").val(),
         observaciones: $("#txtObservaciones").val(),
-        estado: "1",
-        neto: $("#txtNeto").val(),
-        iva: $("#txtIVA").val(),
-        total: $("#txtTotal").val()
+        estado: "0",
+        neto: parseInt($("#txtNeto").val()),
+        iva: parseInt($("#txtIVA").val()),
+        total:parseInt( $("#txtTotal").val())
     };
-
-    
-
 
     $.ajax({
         type: "post",
@@ -136,19 +133,13 @@ function agregarCabecera() {
 
             }
 
-            
-
         },
         error: function (a, b, c) {
             console.log(a, b, c);
-        },
-        async: false
+        }
     });
 
 }
-
-
-
 
 
 
@@ -237,8 +228,8 @@ var contador = 0;
 
 function agregarFilaTablaServicio() {
     var seleccion = $("#selServicio").val(); // obtengo el id del servicio
-    var valor = $("#txtValServicio").val(); 
-    var cantidad = '1';
+    var valor = parseInt($("#txtValServicio").val()); 
+    var cantidad = 1;
     var objeto;
     $.ajax({
         type: "post",

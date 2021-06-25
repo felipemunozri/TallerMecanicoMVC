@@ -13,6 +13,9 @@ namespace UTIL.Models
         public int id { get; set; }
         public int cantidad { get; set; }
         public char Tipo { get; set; }
+
+        public string tipo { get; set; }
+
         public int subTotal { get; set;}
 
     }

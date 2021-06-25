@@ -47,6 +47,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -123,8 +129,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ConsultaClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MecanicoController.cs" />
     <Compile Include="Controllers\OrdenTrabajoController.cs" />
     <Compile Include="Controllers\PresupuestoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
@@ -139,6 +147,8 @@
     <Compile Include="UTIL\ActualizacionJS.cs" />
     <Compile Include="UTIL\BaseController.cs" />
     <Compile Include="UTIL\JsonResultResponse.cs" />
+    <Compile Include="UTIL\PDF\FuncionesPDF.cs" />
+    <Compile Include="UTIL\PDF\PDF.cs" />
     <Compile Include="UTIL\SessionVariables.cs" />
     <Compile Include="UTIL\StringFormat.cs" />
   </ItemGroup>
@@ -327,6 +337,20 @@
     <Content Include="Content\assets\css\material\theme\red.min.css" />
     <Content Include="Content\assets\css\material\theme\teal.min.css" />
     <Content Include="Content\assets\css\material\theme\yellow.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\app.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\images\bg-content-cover.png" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\aqua.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\black.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\blue.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\green.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\indigo.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\lime.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\orange.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\pink.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\purple.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\red.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\teal.min.css" />
+    <Content Include="Content\assets\css\one-page-parallax\theme\yellow.min.css" />
     <Content Include="Content\assets\css\transparent\app.min.css" />
     <Content Include="Content\assets\css\transparent\images\coming-soon.jpg" />
     <Content Include="Content\assets\css\transparent\images\cover-pattern.png" />
@@ -378,6 +402,11 @@
     <Content Include="Content\assets\css\webfonts\fa-brands-400.svg" />
     <Content Include="Content\assets\css\webfonts\fa-regular-400.svg" />
     <Content Include="Content\assets\css\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\assets\img\bg\bg-action.jpg" />
+    <Content Include="Content\assets\img\bg\bg-client.jpg" />
+    <Content Include="Content\assets\img\bg\bg-home.jpg" />
+    <Content Include="Content\assets\img\bg\bg-milestone.jpg" />
+    <Content Include="Content\assets\img\bg\bg-quote.jpg" />
     <Content Include="Content\assets\img\coming-soon\coming-soon-1.jpg" />
     <Content Include="Content\assets\img\cover\cover-profile.jpg" />
     <Content Include="Content\assets\img\flag\cn.jpg" />
@@ -736,6 +765,21 @@
     <Content Include="Content\assets\js\demo\ui-tree.demo.min.js" />
     <Content Include="Content\assets\js\demo\widget.demo.js" />
     <Content Include="Content\assets\js\demo\widget.demo.min.js" />
+    <Content Include="Content\assets\js\one-page-parallax\app.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\app.min.js" />
+    <Content Include="Content\assets\js\one-page-parallax\images\bg-content-cover.png" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\aqua.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\black.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\blue.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\green.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\indigo.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\lime.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\orange.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\pink.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\purple.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\red.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\teal.min.css" />
+    <Content Include="Content\assets\js\one-page-parallax\theme\yellow.min.css" />
     <Content Include="Content\assets\js\pace.min.js" />
     <Content Include="Content\assets\js\theme\apple.js" />
     <Content Include="Content\assets\js\theme\apple.min.js" />
@@ -6301,7 +6345,10 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="WebJs\Base.js" />
+    <Content Include="WebJs\Cliente\Cliente.js" />
     <Content Include="WebJs\Login\Login.js" />
+    <Content Include="WebJs\Mecanicos.js" />
+    <Content Include="WebJs\OrdenTrabajo\ConsultarOrden.js" />
     <Content Include="WebJs\Presupuesto\ConsultaPresupuesto.js" />
     <Content Include="WebJs\Presupuesto\Presupuesto.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -6382,6 +6429,9 @@
     <Content Include="Views\Proveedor\CrearProveedor.cshtml" />
     <Content Include="Views\Proveedor\ConsultarProveedor.cshtml" />
     <Content Include="Views\Proveedor\ModificarProveedor.cshtml" />
+    <Content Include="Views\ConsultaCliente\ConsultaCliente.cshtml" />
+    <Content Include="Views\Presupuesto\PresupuestosAprobados.cshtml" />
+    <Content Include="Views\Mecanico\Mecanico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

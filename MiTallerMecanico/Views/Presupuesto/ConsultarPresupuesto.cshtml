@@ -3,10 +3,11 @@
     ViewBag.Title = "ConsultarPresupuesto";
     List<PresupuestoModel> presu = ViewBag.Presu;
     string parametroUpdate = MiTallerMecanico.UTIL.ActualizacionJS.obtenerParametro();
+   
 
 }
 <script src="~/WebJs/Presupuesto/ConsultaPresupuesto.js?@parametroUpdate"></script>
-
+<input type="hidden" id="url" value="@Url.Action("ConsultarPresupuesto", "Presupuesto" )" />
 <div class="panel panel-inverse width-full">
     <div class="panel-heading">
         <h4 class="panel-title">Listado de Clientes </h4>
@@ -42,7 +43,7 @@
                     <th>Estado</th>
 
                     <th></th>
-                 
+
 
 
                 </tr>
@@ -53,39 +54,41 @@
                     {
                         for (int i = 0; i < presu.Count; i++)
                         {
-                                <tr>
+                            <tr>
 
-                                    <td>@presu[i].folioEncabezado</td>
+                                <td>@presu[i].folioEncabezado</td>
 
-                                    <td>@presu[i].Nombre</td>
+                                <td>@presu[i].Nombre</td>
 
-                                    <td>@presu[i].rutCliente</td>
+                                <td>@presu[i].rutCliente</td>
 
-                                    <td>@presu[i].patente</td>
+                                <td>@presu[i].patente</td>
 
-                                    <td>@presu[i].marca </td>
+                                <td>@presu[i].marca </td>
 
-                                    <td>@presu[i].modelo </td>
+                                <td>@presu[i].modelo </td>
 
-                                    <td>@presu[i].fecha </td>
+                                <td>@presu[i].fecha </td>
 
-                                    <td>$@presu[i].neto.ToString("N0")</td>
+                                <td>$@presu[i].neto.ToString("N0")</td>
 
-                                    <td>$@presu[i].iva.ToString("N0")</td>
+                                <td>$@presu[i].iva.ToString("N0")</td>
 
-                                    <td>$@presu[i].total.ToString("N0")</td>
+                                <td>$@presu[i].total.ToString("N0")</td>
 
-                                    <td>@presu[i].Estado</td>
+                                <td>@presu[i].Estado</td>
 
-                                    <td>
-                                        <input class="btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#DetallePresupuesto" onclick="DetallePresupuesto(@presu[i].folioEncabezado);" value="Detalle">
-                                        <input class="btn btn btn-success btn-xs" type="button"data-toggle="modal" data-target="#DetalleEncabezado"  name="btnEditarPresupuesto" onclick="EditarPresupuesto(@presu[i].folioEncabezado);" value="Editar">
+                                <td>
+                                    <button class="fa fa-download btn btn-warning btn-xs" onclick="DescargarPdf(@presu[i].folioEncabezado)"></button>
+                                    <input class="btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#DetallePresupuesto" onclick="DetallePresupuesto(@presu[i].folioEncabezado);" value="Detalle">
+                                    <input class="btn btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#DetalleEncabezado" name="btnEditarPresupuesto" onclick="EditarPresupuesto(@presu[i].folioEncabezado);" value="Editar">
+                                    <input class="btn btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#AprobarPresupuesto" name="btnAprobarPresupuesto" onclick="AprobarPresupuesto(@presu[i].folioEncabezado);" value="Aprobar">
 
-                                    </td>
+                                </td>
 
-                                  
 
-                                    </tr>
+
+                            </tr>
                         }
                     }
                     catch (Exception)
@@ -142,9 +145,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Cabecera Presupuesto</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">×</span>
-                </button>
+                @*<button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>*@
             </div>
             <div class="modal-body">
                 <div class="x_content">
@@ -157,13 +160,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnCerrarModal" class="btn btn-default" onclick="Actualiza();" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
 
-//editar detalle
+
 <div id="DetalleDetalle" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -183,14 +186,13 @@
                                         <th>ID</th>
                                         <th>Codigo</th>
                                         <th>Detalle </th>
-                                        <th>Cantidad</th>                                        
+                                        <th>Cantidad</th>
                                         <th>Unidad</th>
                                         <th>Sub Total</th>
-                                       
+
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                 </tbody>
                             </table>
                         </div>
@@ -226,6 +228,7 @@
                                         <td>
                                             <input type="text" name="txtCodigo" id="txtCodigo" disabled class="form-control" tabindex="-1" size="40" min="0" />
                                             <input type="text" name="idDetalle" id="idDetalle" hidden />
+                                            <input type="text" name="idEncabezado" id="idEncabezado" hidden />
                                         </td>
                                     </tr>
 
@@ -277,6 +280,78 @@
             <div class="modal-footer">
                 <button type="button" id="btnCerrarModal" class="btn btn-default btn-warning"
                         onclick="Detalle_X_Modificar()" data-dismiss="modal">
+                    Grabar
+                </button>
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="AprobarPresupuesto" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Aprobar Presupuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table class="table table-profile">
+                                <tbody>
+                                    <tr>
+                                        <td>ID.Presupuesto</td>
+
+                                        <td>
+                                            <input type="text" name="txtPresupuestoId" id="txtPresupuestoId" disabled class="form-control font-weight-bold" tabindex="-1" size="2" min="0" />
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr class="highlight">
+                                        <td>Seleccione Mecanico:</td>
+                                        <td>
+                                            <select id="mecanicos" class="form-control w-75"></select>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="highlight">
+                                        <td>Seleccione Prioridad :</td>
+                                        <td>
+                                            <select class="form-control w-75" id="SeleccionarPriorirdad">
+                                                <option value="0">Baja</option>
+                                                <option value="1">Media </option>
+                                                <option value="2">Alta </option>
+                                            </select>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr class="highlight">
+                                        <td>Seleccione Fecha :</td>
+                                        <td>
+                                            <input type="date" class="form-control" name="txtFechaEntrega" min="0" value="" id="txtFechaEntrega">
+                                        </td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-success"
+                        onclick="GenerarOrden();" data-dismiss="modal">
                     Grabar
                 </button>
                 <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>

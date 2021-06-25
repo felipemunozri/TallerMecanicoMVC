@@ -6,6 +6,7 @@
        
 
         var urlLogin = $("#urlLogin").val();
+        var urlMec = $("#urlMec").val();
         $.ajax({
             type: "POST",
             url: urlLogin,
@@ -21,15 +22,18 @@
                             $("#modalErrorLoginMensaje").html(data.Mensaje);
                             $("#aModalErrorLogin").click();
                             return;
-                        }
+                        }                  
                     }
                 }
                 catch (e) {
 
                 }
-                if (data.Validador ==1) {
+                if (data.tipo == 1) {
                     window.location = urlIndex;
                     //traer url de vista
+                } else {
+                    window.location = urlMec;
+
                 }
                 
             },

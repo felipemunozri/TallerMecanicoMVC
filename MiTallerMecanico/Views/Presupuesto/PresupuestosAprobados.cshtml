@@ -1,0 +1,363 @@
+﻿
+
+@using UTIL.Models;
+@{
+    ViewBag.Title = "presuAprobadospuestos Aprobados";
+    List<PresupuestoModel> presuAprobados = ViewBag.presuAprobador;
+    string parametroUpdate = MiTallerMecanico.UTIL.ActualizacionJS.obtenerParametro();
+
+
+}
+<script src="~/WebJs/Presupuesto/ConsultaPresupuesto.js?@parametroUpdate"></script>
+<input type="hidden" id="url" value="@Url.Action("ConsultarpresuAprobadospuesto", "presuAprobadospuesto" )" />
+<div class="panel panel-inverse width-full">
+    <div class="panel-heading">
+        <h4 class="panel-title">Listado Presupuestos aprobados </h4>
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="dataTable" class="table" cellspacing="0">
+            <thead>
+                <tr>
+
+                    <th>id</th>
+
+                    <th>Cliente</th>
+
+                    <th>Rut</th>
+
+                    <th>Patente</th>
+
+                    <th>Marca</th>
+
+                    <th>Modelo</th>
+
+                    <th>Fecha</th>
+
+                    <th>Neto</th>
+
+                    <th>Iva</th>
+
+                    <th>Total</th>
+
+                    <th>Estado</th>
+
+                    <th></th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    try
+                    {
+                        for (int i = 0; i < presuAprobados.Count; i++)
+                        {
+                            <tr>
+
+                                <td>@presuAprobados[i].folioEncabezado</td>
+
+                                <td>@presuAprobados[i].Nombre</td>
+
+                                <td>@presuAprobados[i].rutCliente</td>
+
+                                <td>@presuAprobados[i].patente</td>
+
+                                <td>@presuAprobados[i].marca </td>
+
+                                <td>@presuAprobados[i].modelo </td>
+
+                                <td>@presuAprobados[i].fecha </td>
+
+                                <td>$@presuAprobados[i].neto.ToString("N0")</td>
+
+                                <td>$@presuAprobados[i].iva.ToString("N0")</td>
+
+                                <td>$@presuAprobados[i].total.ToString("N0")</td>
+
+                                <td>@presuAprobados[i].Estado</td>
+
+                                <td>
+                                    <input class="btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#DetallepresuAprobadospuesto" onclick="DetallePresupuesto(@presuAprobados[i].folioEncabezado);" value="Detalle">
+                                    
+
+                                </td>
+
+
+
+                            </tr>
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>No existen Clientes</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="DetallepresuAprobadospuesto" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detalle presuAprobadospuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetallePresupuesto" class="table table-profile"></table>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetallePresupuestoDetalle" class="table table-profile"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DetalleEncabezado" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Cabecera presuAprobadospuesto</h4>
+                @*<button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>*@
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblCabecera" class="table table-profile"></table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" onclick="Actualiza();" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="DetalleDetalle" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detalle presuAprobadospuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetalle" class="table table-profile">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Codigo</th>
+                                        <th>Detalle </th>
+                                        <th>Cantidad</th>
+                                        <th>Unidad</th>
+                                        <th>Sub Total</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="EditarDetallepresuAprobadospuesto" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detalle Cotizacion</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblEditDetalle" class="table table-profile">
+                                <thead>
+                                    <tr class="highlight">
+                                        <th>Codigo</th>
+                                        <td>
+                                            <input type="text" name="txtCodigo" id="txtCodigo" disabled class="form-control" tabindex="-1" size="40" min="0" />
+                                            <input type="text" name="idDetalle" id="idDetalle" hidden />
+                                            <input type="text" name="idEncabezado" id="idEncabezado" hidden />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <td>
+                                            <input type="text" name="txtTipo" id="txtTipo" disabled class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Nombre </th>
+                                        <td>
+                                            <input type="text" name="txtProducto" id="txtNombre" disabled class="form-control" tabindex="-1" size="90" min="0" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Subtotal</th>
+                                        <td>
+                                            <input type="number" name="txtSubtotal" id="txtSubtotal" class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <th>Cantidad</th>
+                                        <td>
+                                            <input type="number" name="txtCantidad" id="txtCantidad" class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <th>Total </th>
+                                        <td>
+                                            <input type="number" name="txtTotal" id="txtTotal" disabled class="form-control" tabindex="-1" size="40" min="0" />
+                                        </td>
+                                    </tr>
+
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default btn-warning"
+                        onclick="Detalle_X_Modificar()" data-dismiss="modal">
+                    Grabar
+                </button>
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="AprobarpresuAprobadospuesto" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Aprobar presuAprobadospuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table class="table table-profile">
+                                <tbody>
+                                    <tr>
+                                        <td>ID.presuAprobadospuesto</td>
+
+                                        <td>
+                                            <input type="text" name="txtpresuAprobadospuestoId" id="txtpresuAprobadospuestoId" disabled class="form-control font-weight-bold" tabindex="-1" size="2" min="0" />
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr class="highlight">
+                                        <td>Seleccione Mecanico:</td>
+                                        <td>
+                                            <select id="mecanicos" class="form-control w-75"></select>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="highlight">
+                                        <td>Seleccione Prioridad :</td>
+                                        <td>
+                                            <select class="form-control w-75" id="SeleccionarPriorirdad">
+                                                <option value="0">Baja</option>
+                                                <option value="1">Media </option>
+                                                <option value="2">Alta </option>
+                                            </select>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr class="highlight">
+                                        <td>Seleccione Fecha :</td>
+                                        <td>
+                                            <input type="date" class="form-control" name="txtFechaEntrega" min="0" value="" id="txtFechaEntrega">
+                                        </td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-success"
+                        onclick="GenerarOrden();" data-dismiss="modal">
+                    Grabar
+                </button>
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

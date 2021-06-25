@@ -1,5 +1,18 @@
 ﻿
 var datosDetalle = 0;
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+var yyyy = today.getFullYear();
+if (dd < 10) {
+    dd = '0' + dd
+}
+if (mm < 10) {
+    mm = '0' + mm
+}
+
+today = yyyy + '-' + mm + '-' + dd;
+
 
 
 $(document).ready(function () {
@@ -19,6 +32,22 @@ $(document).ready(function () {
 
     });
 
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    $("#txtFechaEntrega").val(today);
+    document.getElementById("txtFechaEntrega").setAttribute("min", today);
+    
+    
 
 });
 
@@ -200,7 +229,7 @@ function EditarPresupuesto(Id) {
                         "<td></td></tr>" +
                         "<td></td>" +
                         "<td><button class='btn btn-warning btn-xs' data-toggle='modal' data-target='#DetalleDetalle' onclick='EditarDetallePresupuesto(" + Id + ")'>Editar Detalle</button></td>" +
-                        "<td><button class='btn btn-danger btn-xs' onclick='grabaEditaCotizacion(" + value.Id + ")'>Guardar Cabecera</button></td>" +
+                        "<td><button class='btn btn-danger btn-xs' onclick='GrabarPresupuesto(" + Id + ")'>Guardar Cabecera</button></td>" +
                         "<td></td>";
                     tableCabecera.append(htmlCabecera);
                 });
@@ -383,7 +412,16 @@ function modificardetalle(Linea,idEncabezado) {
             else {
                 
                 $("#idDetalle").val(data.Detalle.folioDetalle);
+                $("#idEncabezado").val(data.Detalle.fk_folioEncabezado);
+
                 $("#txtCodigo").val(data.Detalle.codigo);
+                if (data.Detalle.Tipo == "Servicio") {
+
+                    $("#txtCantidad").prop('disabled', true);
+                } else {
+
+                    $("#txtCantidad").prop('disabled', false);
+                }
                 $("#txtTipo").val(data.Detalle.Tipo);
                 $("#txtNombre").val(data.Detalle.nombre);
                 $("#txtCantidad").val(data.Detalle.cantidad);
@@ -395,4 +433,216 @@ function modificardetalle(Linea,idEncabezado) {
             }
         }
     });
+}
+
+
+
+
+function Detalle_X_Modificar() {
+
+    var total = 0;
+    var iva = 0;
+    var neto = 0;
+    var folioDetalle = $("#idDetalle").val();
+    var idEncabezado = $("#idEncabezado").val();
+    var cantidad = $("#txtCantidad").val();
+    var subtotal = $("#txtTotal").val();
+    //$("#txtNombre").val(data.Detalle.nombre);
+    //$("#txtCantidad").val(data.Detalle.cantidad);
+    //$("#txtSubtotal").val(data.Detalle.Unidad);
+    //$("#txtTotal").val(data.Detalle.subTotal);
+
+
+    
+        $.ajax({
+            type: "POST",
+            url: "DetalleXmodificar",
+            data:
+            {
+                folioDetalle,
+                idEncabezado,
+                cantidad,
+                subtotal
+            },
+            async: true,
+            success: function (data) {
+                if (data.Verificador) {
+                    abrirInformacion("Modificacion", "Registro registro modificado");
+                    $("#tblDetalle tbody").html("");
+                    var tableDetalle = $("#tblDetalle tbody");
+                    var htmlDetalle = "";
+                
+                    $.each(data.Detalle, function (index, value) {
+                        htmlDetalle = "";
+
+
+                        htmlDetalle = htmlDetalle + "<tr>";
+                        htmlDetalle = htmlDetalle + "<td>" + value.folioDetalle + "</td>";
+                        htmlDetalle = htmlDetalle + "<td id='td_detalleProducto_codigoProducto_" + value.folioDetalle + "'>" + value.codigo + "</td>";
+                        htmlDetalle = htmlDetalle + "<td id='td_detalleProducto_descripcionProducto_" + value.folioDetalle + "'>" + value.nombre + "</td>";
+
+                        htmlDetalle = htmlDetalle + "<td style='text-align: right;'>" + value.cantidad + "</td>";
+                        htmlDetalle = htmlDetalle + "<td style='text-align: right;'>" + formatearNumero(value.Unidad, "$") + "</td>";
+                        htmlDetalle = htmlDetalle + "<td style='text-align: right;'>" + formatearNumero(Math.round(value.subTotal), "$") + "</td>";
+                        htmlDetalle = htmlDetalle + "<td></td>";
+                        htmlDetalle = htmlDetalle + "<td><button class='btn btn-warning btn-xs' data-toggle='modal' data-target='#EditarDetallePresupuesto' onclick='modificarDetalle(" + value.folioDetalle + "," + value.fk_folioEncabezado  + ")'>Editar</button></td>";
+                        htmlDetalle = htmlDetalle + "<td><button class='btn btn-danger btn-xs' onclick='eliminarDetalle(" + value.folioDetalle + "," + value.fk_folioEncabezado + ")'>Eliminar</button></td>";
+                        htmlDetalle = htmlDetalle + "</tr>";
+
+                        neto += value.subTotal;
+
+                        iva = Math.round(neto * 0.19);
+                        total = Math.round(neto + iva);
+
+                        tableDetalle.append(htmlDetalle);
+                    });
+
+                    var colspanTotales = 7;
+
+
+                    var htmldetalleTotal = "";
+                    htmldetalleTotal = htmldetalleTotal + "<tr><th colspan='" + colspanTotales + "'>SubTotal</th>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'>" + formatearNumero(Math.round(neto), "$") + "</td>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'></td>";
+                    htmldetalleTotal = htmldetalleTotal + "</tr>";
+                    htmldetalleTotal = htmldetalleTotal + "<tr><th colspan='" + colspanTotales + "'>Total Iva</th>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'>" + formatearNumero(iva, "$") + "</td>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'></td>";
+                    htmldetalleTotal = htmldetalleTotal + "</tr>";
+                    htmldetalleTotal = htmldetalleTotal + "<tr><th colspan='" + colspanTotales + "'>Venta Total</th>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'>" + formatearNumero(Math.round(total), "$") + "</td>";
+                    htmldetalleTotal = htmldetalleTotal + "<td style='text-align: right;'></td>";
+                    htmldetalleTotal = htmldetalleTotal + "</tr>";
+                    tableDetalle.append(htmldetalleTotal);
+
+                    datosDetalle = data.Detalle;
+                }
+            }
+        });
+
+}
+
+
+
+function GrabarPresupuesto(Id) {
+    var url = $("#url").val();
+    var observacion = $("#observacion").val();
+    $.ajax({
+        type: "POST",
+        url: "ActualizarObservacion",
+        data:
+        {
+            Id,
+            observacion
+        },
+        async: true,
+        success: function (data) {
+            if (data.Verificador == true) {
+                abrirInformacion("Usuario", "registro modificado")
+
+                window.location = url;
+            } else {
+
+                abrirError("Error","registro no encontrado");
+            }
+        }
+    });
+
+}
+
+
+function Actualiza() {
+
+    var url = $("#url").val();
+    window.location = url;
+}
+
+function AprobarPresupuesto(id) {
+    $("#txtPresupuestoId").val(id);
+    $.ajax({
+        type: "POST",
+        url: "aprobarPresupuesto",
+        data:
+        {
+            id
+        },
+        async: true,
+        success: function (data) {
+
+            $("#mecanicos").find('option').remove().end();
+
+            $.each(data.mecanicos, function (index, values) {
+                $("#mecanicos").append('<option value="' + values.idUsuario + '">' + values.nombreUsuario + '</option>');
+            });
+           
+
+        }
+
+    });
+
+}
+
+
+
+function GenerarOrden() {
+    var url = $("#url").val();
+    var idPresupuesto = $("#txtPresupuestoId").val();
+    var Idmecanico = $("#mecanicos").val();
+    var prioridad = $("#SeleccionarPriorirdad").val();
+    if (prioridad == 0) {
+        prioridad = "Baja";
+    } else {
+        if (prioridad == 1)
+        { prioridad = "Media" }
+        else { prioridad = "Alta" }
+    }
+    var fecha = $("#txtFechaEntrega").val();
+    if (fecha=="") {
+        fecha = today;
+    } else { 
+
+        $.ajax({
+            type: "POST",
+            url: "GenerarOrden",
+            data:
+            {
+                idPresupuesto,
+                Idmecanico,
+                prioridad,
+                fecha
+            },
+            async: true,
+            success: function (data) {
+
+                abrirInformacion("Usuario", "Presupuesto aprobado");
+
+                windows.location = url;
+
+
+
+            }
+
+        });
+    
+    }
+}
+
+
+
+function DescargarPdf(idCotizacion) {
+    $.ajax({
+        type: "POST",
+        url: "GenerePdfCotizacion",
+        data: {
+            Id: idCotizacion
+        },
+        async: true,
+        success: function (data) {
+            window.location = 'ConsultarPresupuesto?idPresupuesto=' + idCotizacion;
+        }
+    });
+
+
+
+
 }

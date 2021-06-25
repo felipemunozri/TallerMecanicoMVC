@@ -468,3 +468,6 @@ C:\Users\zero_cool\Desktop\Proyecto mvc\TallerNico\TallerMecanicoMVC\MiTallerMec
 C:\Users\zero_cool\Desktop\Proyecto mvc\TallerNico\TallerMecanicoMVC\MiTallerMecanico\obj\Debug\MiTallerMecanico.csproj.CopyComplete
 C:\Users\zero_cool\Desktop\Proyecto mvc\TallerNico\TallerMecanicoMVC\MiTallerMecanico\obj\Debug\MiTallerMecanico.dll
 C:\Users\zero_cool\Desktop\Proyecto mvc\TallerNico\TallerMecanicoMVC\MiTallerMecanico\obj\Debug\MiTallerMecanico.pdb
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerNico\TallerMecanicoMVC\MiTallerMecanico\bin\BouncyCastle.Crypto.dll
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerNico\TallerMecanicoMVC\MiTallerMecanico\bin\itextsharp.dll
+C:\Users\zero_cool\Desktop\Proyecto mvc\TallerNico\TallerMecanicoMVC\MiTallerMecanico\bin\itextsharp.xml

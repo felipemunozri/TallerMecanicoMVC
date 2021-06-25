@@ -1,6 +1,7 @@
 ﻿using MiTallerMecanico.UTIL;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,6 +34,10 @@ namespace MiTallerMecanico.Controllers
             List<PresupuestoModel> presu = controlTaller().obtenerPresupuestos();
             ViewBag.presu = presu;
 
+            List<UsuarioModel> mecanicos = controlTaller().obtenerMecanicos();
+           
+            ViewBag.mecanico = mecanicos;
+
             return View();
         }
 
@@ -48,6 +53,14 @@ namespace MiTallerMecanico.Controllers
             List<ServicioModel> servicios = controlTaller().ObtenerServicios();
             ViewBag.Servicios = servicios;
             #endregion
+
+            return View();
+        }
+
+        public ActionResult PresupuestosAprobados()
+        {
+            List<PresupuestoModel> presuAprobados = controlTaller().obtenerPresupuestosAprobados();
+            ViewBag.presuAprobador = presuAprobados;
 
             return View();
         }
@@ -92,26 +105,28 @@ namespace MiTallerMecanico.Controllers
                 return Json(new { servicios = servicios , repuestos=repuestos}, JsonRequestBehavior.AllowGet);
             }
 
-        [HttpPost]
-        public ActionResult AgregarPresupuesto(EncabezadoPresupuestoModel presupuesto, List<DetallePresupuestoModel> detalle) {
+        
+        public JsonResult AgregarPresupuesto(EncabezadoPresupuestoModel presupuesto, List<DetalleInsertModel> detalle) {
 
             RespuestaModel id_encabezado = controlTaller().AgregarEncabezado(presupuesto);
 
-            for (int i=0;i<detalle.Count;i++) {
+            for (int i = 0; i < detalle.Count; i++)
+            {
 
-              RespuestaModel Detalle= controlTaller().AgregarDetalle(detalle[i],Convert.ToInt32(id_encabezado.id_encabezado));
-            
+                RespuestaModel Detalle = controlTaller().AgregarDetalle(detalle[i], Convert.ToInt32(id_encabezado.id_encabezado));
+
             }
-            if (id_encabezado == null && detalle==null)
+            if (id_encabezado == null && detalle == null)
             {
 
                 return Json(new { Validador = false }, JsonRequestBehavior.AllowGet);
             }
-            else {
+            else
+            {
                 return Json(new { Validador = true }, JsonRequestBehavior.AllowGet);
             }
+          
 
-            
         }
 
 
@@ -168,8 +183,6 @@ namespace MiTallerMecanico.Controllers
             RespuestaModel upd = controlTaller().ActualizarEncabezado(idEncabezado,neto,iva,total);
 
 
-            
-
 
             return Json(new { Cabecera = enca, Detalle = deta, Verificador = true }, JsonRequestBehavior.AllowGet);
         }
@@ -190,6 +203,94 @@ namespace MiTallerMecanico.Controllers
             }
            
         }
+
+        public JsonResult detallexmodificar(int folioDetalle, int idEncabezado, int cantidad,int subtotal)
+        {
+            int neto = 0;
+            int netoAux = 0;
+            int iva = 0;
+            int total;
+            RespuestaModel upd = controlTaller().ActualizaDetalle(folioDetalle,cantidad,subtotal);
+
+          List<EncabezadoDetalle> enca = controlTaller().obtenerEncabezadoDetalle(idEncabezado);
+            List<DetallePresuModel> deta = controlTaller().obtenerDetalle(idEncabezado);
+
+            for (int i = 0; i < deta.Count; i++)
+            {
+                netoAux = neto + netoAux;
+                neto = netoAux + deta[i].subTotal;
+            }
+
+            iva = (neto * 19) / 100;
+            total = neto + iva;
+
+            RespuestaModel up = controlTaller().ActualizarEncabezado(idEncabezado, neto, iva, total);
+
+
+            return Json(new { Cabecera = enca, Detalle = deta, Verificador = true }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult ActualizarObservacion(int Id, string observacion)
+        {
+           
+            RespuestaModel upd = controlTaller().ActualizaObservacion(Id, observacion);
+
+
+            return Json(new {Verificador = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AprobarPresupuesto( int id) {
+
+            List<UsuarioModel> mecanicos = controlTaller().obtenerMecanicos();
+            
+            return Json(new {mecanicos= mecanicos, Verificador = true }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GenerarOrden(int idPresupuesto,int Idmecanico,string prioridad, DateTime fecha)
+        {
+          var fh = DateTime.Now.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
+           
+            List<EncabezadoDetalle> enca = controlTaller().obtenerEncabezadoDetalle(idPresupuesto);
+            List<DetallePresupuestoModel> deta = controlTaller().obtenerDetalleExacto(idPresupuesto);
+
+            DetalleOrden detalle = new DetalleOrden();
+            OrdenModel orden = new OrdenModel();
+ 
+            orden.fk_idUsuario = Idmecanico;
+            orden.fk_rutCliente = enca[0].rutCliente;
+            orden.fk_patente = enca[0].patente;
+            orden.fecha = Convert.ToDateTime(fh);
+            orden.fechaEntrega = fecha;
+            orden.prioridad = prioridad;
+            orden.observaciones = enca[0].observaciones;
+            orden.anulacion = false;
+            orden.neto = enca[0].neto;
+            orden.iva = enca[0].iva;
+            orden.total = enca[0].total;
+
+            RespuestaModel idDetalleEncabezado = controlTaller().AgregarEncabezadoOrden(orden);
+
+
+            for (int i = 0; i < deta.Count; i++) {
+
+                detalle.fk_folioOrden = Convert.ToInt32(idDetalleEncabezado.id_encabezado);
+                detalle.id = deta[i].id;
+                detalle.cantidad = deta[i].cantidad;
+                detalle.Tipo = char.Parse(deta[i].tipo);
+                detalle.subTotal = deta[i].subTotal;
+
+                RespuestaModel ins = controlTaller().AgregarDetalleOrden(detalle);
+            }
+
+            RespuestaModel act = controlTaller().ActualizarEstadoPresupuesto(idPresupuesto);
+
+            return Json(new {  Verificador = true }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        
+
+
 
 
     }

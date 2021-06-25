@@ -30,5 +30,32 @@ namespace MiTallerMecanico.UTIL
 
             return MiTallerMecanico.UTIL.JsonResultResponse.ObtenerResponse<List<ServicioModel>>(ser);
         }
+
+
+
+
+        public JsonResult GenerePdfCotizacion(int Id)
+        {
+            try
+            {
+                string mapPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Presupuestos/");
+                string rutas = "";
+
+                EncabezadoDetalle Enca = controlTaller().EncabezadoPDF(Id);
+                List<DetallePresuModel> deta = controlTaller().obtenerDetalle(Id);
+
+
+                RespuestaModel response = new MiTallerMecanico.UTIL.PDF.PDF().GeneraPdfCotizacionII(mapPath, Enca, deta);
+                rutas = response.RutaArchivo;
+                SessionVariables.SESSION_RUTA_PDF_COTIZACION = rutas;
+                return Json(response.Mensaje);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return Json(new { Verificador = false, Mensaje = "Se produjo un error al generar el reporte, favor reintentelo, si el problema persiste, comuniquese con su administrador" });
+            }
+        }
     }
+
 }

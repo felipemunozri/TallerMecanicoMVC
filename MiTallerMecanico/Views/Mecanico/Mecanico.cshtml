@@ -1,0 +1,247 @@
+﻿@using UTIL.Models;
+@{
+
+    ViewBag.Title = "Mecanico";
+    List<ModalDetalleOrden> ordenes = ViewBag.Mec;
+    string parametroUpdate = MiTallerMecanico.UTIL.ActualizacionJS.obtenerParametro();
+}
+
+<script src="~/WebJs/Mecanicos.js?@parametroUpdate"></script>
+
+
+<div id="top-menu" class="top-menu">
+    <ul class="nav">
+
+        <li class="has-sub">
+            <a href="javascript:;">
+                <i class="fa fa-list-ol"></i>
+                <span>Ordenes</span>
+                <b class="caret"></b>
+            </a>
+            <ul class="sub-menu overflow-hidden">
+                @*<li><a href="@Url.Action("CrearPresupuesto", "Presupuesto")">Ordenes</a></li>
+                <li><a href="@Url.Action("ConsultarPresupuesto", "Presupuesto")">Consultar Presupuetos</a></li>
+                <li><a href="@Url.Action("PresupuestosAprobados", "Presupuesto")">Presupuetos Aprobados</a></li>*@
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+<input type="hidden" id="url" value="@Url.Action("Mecanico", "Mecanico" )" />
+<div class="panel panel-inverse width-full">
+    <div class="panel-heading">
+        <h4 class="panel-title">Listado de Clientes </h4>
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="dataTable" class="table" cellspacing="0">
+            <thead>
+                <tr>
+
+                    <th>id</th>
+
+                    <th>Cliente</th>
+
+                    <th>Rut</th>
+
+                    <th>Patente</th>
+
+                    <th>Marca</th>
+
+                    <th>Modelo</th>
+
+                    <th>Fecha</th>
+
+                    <th>Plazo</th>
+
+                    <th>Responsable</th>
+
+                    <th>Prioridad</th>
+
+                    <th>Neto</th>
+
+                    <th>Iva</th>
+
+                    <th>Total</th>
+
+                    <th>Estado</th>
+
+                    <th></th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    try
+                    {
+                        for (int i = 0; i < ordenes.Count; i++)
+                        {
+                            <tr>
+
+                                <td>@ordenes[i].folioOrden</td>
+
+                                <td>@ordenes[i].Nombre</td>
+
+                                <td>@ordenes[i].rutCliente</td>
+
+                                <td>@ordenes[i].patente</td>
+
+                                <td>@ordenes[i].marca </td>
+
+                                <td>@ordenes[i].modelo </td>
+
+                                <td>@ordenes[i].fecha </td>
+
+                                <td>@ordenes[i].Plazo </td>
+
+                                <td>@ordenes[i].Responsable </td>
+
+                                <td>@ordenes[i].prioridad </td>
+
+                                <td>$@ordenes[i].neto.ToString("N0")</td>
+
+                                <td>$@ordenes[i].iva.ToString("N0")</td>
+
+                                <td>$@ordenes[i].total.ToString("N0")</td>
+                                @if (@ordenes[i].estado== "Ingresado") {
+                                <td>@ordenes[i].estado</td>
+                                }
+                                else { 
+                                <td>@ordenes[i].estado</td>
+                                }
+                                <td>
+                                    <input class="btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#Detalleordenespuesto" onclick="Detalleordenes(@ordenes[i].folioOrden);" value="Detalle">
+                                    <input class="btn btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#Aprobarordenespuesto" name="btnEditarordenespuesto" onclick="EditarOrdenMecanico(@ordenes[i].folioOrden,'@ordenes[i].patente');" value="Editar">
+
+                                </td>
+
+
+
+                            </tr>
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>No existen Clientes</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="Detalleordenespuesto" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detalle Orden</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetalleordenes" class="table table-profile"></table>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table id="tblDetalleordenesDetalle" class="table table-profile"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="Aprobarordenespuesto" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Aprobar ordenespuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_content">
+                    <div class="col-lg-push-12">
+                        <div class="table-responsive form-inline">
+                            <table class="table table-profile">
+                                <tbody>
+                                    <tr>
+                                        <td>ID.ordenespuesto</td>
+
+                                        <td>
+                                            <input type="text" name="txtordenesId" id="txtordenesId" disabled class="form-control font-weight-bold" tabindex="-1" size="2" min="0" />
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+
+                                        <td>Patente</td>
+                                        <td>
+                                            <input type="text" name="txtPatenteID" id="txtPatenteID" disabled class="form-control font-weight-bold" tabindex="-1" size="10" min="0" />
+                                        </td>
+
+                                    </tr>
+                                <tr class="highlight">
+                                    <td>Seleccione Estado :</td>
+                                    <td>
+                                        <select class="form-control w-75" id="SeleccionarEstado">
+                                            <option value="0">Ingresado</option>
+                                            <option value="1">En Reparación </option>
+                                            <option value="2">Entregado </option>
+                                        </select>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr class="highlight">
+                                    <td>Ingrese Comentario :</td>
+                                    <td>
+                                        <input type="text" class="form-control" name="txtComentario" size="30" id="txtComentario">
+                                    </td>
+
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarModal" class="btn btn-success"
+                        onclick="CambiarEstado();" data-dismiss="modal">
+                    Grabar
+                </button>
+                <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
